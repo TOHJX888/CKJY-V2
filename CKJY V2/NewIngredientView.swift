@@ -11,6 +11,8 @@ struct NewIngredientView: View {
     
     @State private var ingredientName = ""
     @State private var ingredientPoints = ""
+    @Binding var sourceArray: [Ingredient]
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Form {
@@ -20,10 +22,12 @@ struct NewIngredientView: View {
             }
             Section("Actions") {
                 Button("Save") {
-                    //
+                    let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
+                    sourceArray.append(ingredient)
+                    dismiss()
                 }
                 Button("Cancel", role: .destructive) {
-                    //
+                    dismiss()
                 }
             }
         }
@@ -32,6 +36,6 @@ struct NewIngredientView: View {
 
 struct NewIngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        NewIngredientView()
+        NewIngredientView(sourceArray: .constant([]))
     }
 }

@@ -11,7 +11,6 @@ struct Ingredient: Identifiable, Codable {
     var id = UUID()
     var name: String
     var points = ""
-    var healthyRating: Int
     var isEaten: Bool = false
 }
 

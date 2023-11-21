@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoodListView: View {
     
-    @State private var ingredients = [Ingredient(name: "Broccoli", points: "1", healthyRating: 2), Ingredient(name: "Apple", points: "1", healthyRating: 2)]
+    @State private var ingredients = [Ingredient(name: "Broccoli", points: "1"), Ingredient(name: "Apple", points: "1")]
     @State private var showSheet = false
     
     var body: some View {
@@ -18,25 +18,7 @@ struct FoodListView: View {
                // NavigationLink {
                     //FoodListDetailView(ingredient: $ingredient)
              //   } label: {
-                    HStack {
-                        Image(systemName: ingredient.isEaten ? "checkmark.circle.fill" : "circle")
-                            .onTapGesture {
-                                ingredient.isEaten.toggle()
-                            }
-                        VStack {
-                            Text(ingredient.name)
-                                .strikethrough(ingredient.isEaten)
-                            if !ingredient.points.isEmpty {
-                                HStack {
-                                    Text(ingredient.points)
-                                    Image(systemName: "leaf.fill")
-                                }
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                                .strikethrough(ingredient.isEaten)
-                            }
-                        }
-                    }
+                    IngredientRowView(ingredient: $ingredient)
           //      }
             }
             .navigationTitle("My Food List")
@@ -53,7 +35,7 @@ struct FoodListView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewIngredientView()
+                NewIngredientView(sourceArray: $ingredients)
             }
         }
     }
