@@ -10,6 +10,7 @@ import SwiftUI
 struct FoodListView: View {
     
     @State private var ingredients = [Ingredient(name: "Broccoli", points: "1", healthyRating: 2), Ingredient(name: "Apple", points: "1", healthyRating: 2)]
+    @State private var showSheet = false
     
     var body: some View {
         NavigationStack {
@@ -43,6 +44,16 @@ struct FoodListView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSheet = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $showSheet) {
+                NewIngredientView()
             }
         }
     }

@@ -16,6 +16,7 @@
 		9928845A2B0C88BF00618C2C /* CKJY_V2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884592B0C88BF00618C2C /* CKJY_V2UITestsLaunchTests.swift */; };
 		992884672B0C88D900618C2C /* FoodListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884662B0C88D900618C2C /* FoodListView.swift */; };
 		992884692B0C895000618C2C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884682B0C895000618C2C /* Ingredient.swift */; };
+		9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846C2B0C91CD00618C2C /* NewIngredientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		992884592B0C88BF00618C2C /* CKJY_V2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKJY_V2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		992884662B0C88D900618C2C /* FoodListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListView.swift; sourceTree = "<group>"; };
 		992884682B0C895000618C2C /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		9928846C2B0C91CD00618C2C /* NewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIngredientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				9928843C2B0C88BB00618C2C /* CKJY_V2App.swift */,
 				9928843E2B0C88BB00618C2C /* ContentView.swift */,
 				992884662B0C88D900618C2C /* FoodListView.swift */,
+				9928846C2B0C91CD00618C2C /* NewIngredientView.swift */,
 				992884682B0C895000618C2C /* Ingredient.swift */,
 				992884402B0C88BE00618C2C /* Assets.xcassets */,
 				992884422B0C88BE00618C2C /* Preview Content */,
@@ -265,6 +268,7 @@
 			files = (
 				992884692B0C895000618C2C /* Ingredient.swift in Sources */,
 				992884672B0C88D900618C2C /* FoodListView.swift in Sources */,
+				9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */,
 				9928843F2B0C88BB00618C2C /* ContentView.swift in Sources */,
 				9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */,
 			);
