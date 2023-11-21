@@ -11,10 +11,11 @@ struct FoodListView: View {
     
     @State private var ingredients = [Ingredient(name: "Broccoli", points: "1"), Ingredient(name: "Apple", points: "1")]
     @State private var showSheet = false
+    @StateObject var ingredientManager = IngredientManager()
     
     var body: some View {
         NavigationStack {
-            List($ingredients, editActions: [.all]) { $ingredient in
+            List($ingredientManager.ingredients, editActions: [.all]) { $ingredient in
                // NavigationLink {
                     //FoodListDetailView(ingredient: $ingredient)
              //   } label: {

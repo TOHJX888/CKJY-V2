@@ -18,6 +18,7 @@
 		992884692B0C895000618C2C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884682B0C895000618C2C /* Ingredient.swift */; };
 		9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846C2B0C91CD00618C2C /* NewIngredientView.swift */; };
 		9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846E2B0C984D00618C2C /* IngredientRowView.swift */; };
+		992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884702B0C99AD00618C2C /* IngredientManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		992884682B0C895000618C2C /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		9928846C2B0C91CD00618C2C /* NewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIngredientView.swift; sourceTree = "<group>"; };
 		9928846E2B0C984D00618C2C /* IngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRowView.swift; sourceTree = "<group>"; };
+		992884702B0C99AD00618C2C /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				9928846E2B0C984D00618C2C /* IngredientRowView.swift */,
 				9928846C2B0C91CD00618C2C /* NewIngredientView.swift */,
 				992884682B0C895000618C2C /* Ingredient.swift */,
+				992884702B0C99AD00618C2C /* IngredientManager.swift */,
 				992884402B0C88BE00618C2C /* Assets.xcassets */,
 				992884422B0C88BE00618C2C /* Preview Content */,
 			);
@@ -275,6 +278,7 @@
 				9928843F2B0C88BB00618C2C /* ContentView.swift in Sources */,
 				9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */,
 				9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */,
+				992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
