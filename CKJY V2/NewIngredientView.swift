@@ -12,45 +12,46 @@ struct NewIngredientView: View {
     
     @State private var ingredientName = ""
     @State private var ingredientPoints = ""
-    @Binding var sourceArray: [Ingredient]
+//    @State var selectedIngredient = Ingredient(name: "")
+    
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var ingredientManagerNew: IngredientManagerNew
+    @EnvironmentObject var ingredientManager: IngredientManager
     
     var body: some View {
         NavigationStack {
-            List(ingredientManagerNew.ingredientsNewFiltered, editActions: [.all]) { $ingredientNew in
-               // NavigationLink {
-                    //FoodListDetailView(ingredient: $ingredient)
-             //   } label: {
-                IngredientNewRowView(ingredientNew: Binding(get: { ingredientNew }, set: { ingredientNew = $0 }))
-          //      }
+            List(ingredientManager.presetIngredientsFiltered, editActions: [.all]) { $presetIngredient in
+                Button {
+                    ingredientManager.selectedIngredients.append(presetIngredient)
+                } label: {
+                    IngredientNewRowView(ingredientNew: $presetIngredient)
+                }
             }
-            .searchable(text: $ingredientManagerNew.searchTermNew)
+            .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             .navigationTitle("New Ingredient")
             
-            Form {
-                Section("Information") {
-                    TextField("Name", text: $ingredientName)
-                    TextField("Points", text: $ingredientPoints)
-                }
-                Section("Actions") {
-                    Button("Save") {
-                        let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
-                        sourceArray.append(ingredient)
-                        dismiss()
-                    }
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
-                    }
-                }
-            }
+//            Form {
+//                Section("Information") {
+//                    TextField("Name", text: selectedIngredient.name)
+//                    TextField("Points", text: selectedIngredient.points)
+//                }
+//                Section("Actions") {
+//                    Button("Save") {
+//                        let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
+//                        ingredientManager.ingredientsNew.append(ingredient)
+//                        dismiss()
+//                    }
+//                    Button("Cancel", role: .destructive) {
+//                        dismiss()
+//                    }
+//                }
+//            }
         } //navigationStack
     }
 }
 
 struct NewIngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        NewIngredientView(sourceArray: .constant([]))
-            .environmentObject(IngredientManagerNew())
+        NewIngredientView()
+            .environmentObject(IngredientManager())
     }
 }

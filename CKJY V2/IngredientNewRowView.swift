@@ -9,7 +9,10 @@ import SwiftUI
 
 struct IngredientNewRowView: View {
     
-    @Binding var ingredientNew: IngredientNew
+    @Binding var ingredientNew: Ingredient
+    @EnvironmentObject var ingredientManager: IngredientManager
+    @State var isSelected = false
+    
     
     var body: some View {
         HStack {
@@ -27,13 +30,17 @@ struct IngredientNewRowView: View {
             }
         }
         .onTapGesture {
-//
+            //ingredientName = ingredientNew.name
+        }
+        .onAppear {
+            // check whether this is in ingredientManager.selectedIngredients
         }
     }
 }
 
 struct IngredientNewRowView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientNewRowView(ingredientNew: .constant(IngredientNew(name: "Testing")))
+        IngredientNewRowView(ingredientNew: .constant(Ingredient(name: "Testing")))
+            .environmentObject(IngredientManager())
     }
 }

@@ -19,8 +19,6 @@
 		9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846C2B0C91CD00618C2C /* NewIngredientView.swift */; };
 		9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846E2B0C984D00618C2C /* IngredientRowView.swift */; };
 		992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884702B0C99AD00618C2C /* IngredientManager.swift */; };
-		99775F212B0D95F1000BBD76 /* IngredientManagerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F202B0D95F1000BBD76 /* IngredientManagerNew.swift */; };
-		99775F232B0D9780000BBD76 /* IngredientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F222B0D9780000BBD76 /* IngredientNew.swift */; };
 		99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,8 +55,6 @@
 		9928846C2B0C91CD00618C2C /* NewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIngredientView.swift; sourceTree = "<group>"; };
 		9928846E2B0C984D00618C2C /* IngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRowView.swift; sourceTree = "<group>"; };
 		992884702B0C99AD00618C2C /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
-		99775F202B0D95F1000BBD76 /* IngredientManagerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManagerNew.swift; sourceTree = "<group>"; };
-		99775F222B0D9780000BBD76 /* IngredientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNew.swift; sourceTree = "<group>"; };
 		99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNewRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,9 +113,7 @@
 				99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */,
 				9928846C2B0C91CD00618C2C /* NewIngredientView.swift */,
 				992884682B0C895000618C2C /* Ingredient.swift */,
-				99775F222B0D9780000BBD76 /* IngredientNew.swift */,
 				992884702B0C99AD00618C2C /* IngredientManager.swift */,
-				99775F202B0D95F1000BBD76 /* IngredientManagerNew.swift */,
 				992884402B0C88BE00618C2C /* Assets.xcassets */,
 				992884422B0C88BE00618C2C /* Preview Content */,
 			);
@@ -285,8 +279,6 @@
 				99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */,
 				992884672B0C88D900618C2C /* FoodListView.swift in Sources */,
 				9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */,
-				99775F232B0D9780000BBD76 /* IngredientNew.swift in Sources */,
-				99775F212B0D95F1000BBD76 /* IngredientManagerNew.swift in Sources */,
 				9928843F2B0C88BB00618C2C /* ContentView.swift in Sources */,
 				9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */,
 				9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */,

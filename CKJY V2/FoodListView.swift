@@ -9,18 +9,17 @@ import SwiftUI
 
 struct FoodListView: View {
     
-    @State private var ingredients = [Ingredient(name: "Broccoli", points: "1"), Ingredient(name: "Apple", points: "1")]
+    @State private var sampleIngredients = [Ingredient(name: "Broccoli", points: "1"), Ingredient(name: "Apple", points: "1")]
     @State private var showSheet = false
     @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
-    @EnvironmentObject var ingredientManagerNew: IngredientManagerNew
     
     var body: some View {
         NavigationStack {
-            List(ingredientManager.ingredientsFiltered, editActions: [.all]) { $ingredient in
+            List(ingredientManager.selectedIngredientsFiltered, editActions: [.all]) { $ingredient in
                 IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
             }
-            .searchable(text: $ingredientManager.searchTerm)
+            .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
             .navigationTitle("My Food List")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -35,7 +34,7 @@ struct FoodListView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewIngredientView(sourceArray: $ingredientManager.ingredients)
+                NewIngredientView()
             }
         }
     }
@@ -45,6 +44,5 @@ struct FoodListView_Previews: PreviewProvider {
     static var previews: some View {
         FoodListView()
             .environmentObject(IngredientManager())
-            .environmentObject(IngredientManagerNew())
     }
 }

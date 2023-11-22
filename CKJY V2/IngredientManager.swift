@@ -9,28 +9,59 @@ import Foundation
 import SwiftUI
 
 class IngredientManager: ObservableObject {
-    @Published var ingredients: [Ingredient] = [] {
+    
+    // MARK: Selected Ingredients
+    
+    @Published var selectedIngredients: [Ingredient] = [] {
         didSet {
             save()
         }
     }
-    
-    @Published var searchTerm = ""
-    
-    var ingredientsFiltered: Binding<[Ingredient]> {
+    @Published var selectedIngredientsSearchTerm = ""
+
+    var selectedIngredientsFiltered: Binding<[Ingredient]> {
         Binding (
             get: {
-                if self.searchTerm == "" { return self.ingredients }
-                return self.ingredients.filter {
-                    $0.name.lowercased().contains(self.searchTerm.lowercased())
+                if self.selectedIngredientsSearchTerm == "" { return self.selectedIngredients }
+                return self.selectedIngredients.filter {
+                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased())
                 }
             },
             set: {
-                self.ingredients = $0
+                self.selectedIngredients = $0
             }
         )
     }
+
+    // MARK: Preset Ingredients
+
+    @Published var presetIngredients: [Ingredient] = [
+        Ingredient(name: "Broccoli", points: "1"),
+        Ingredient(name: "Apple", points: "1")
+    ] {
+        didSet {
+            save()
+        }
+    }
+
+    @Published var presetIngredientsSearchTerm = ""
+
+    var presetIngredientsFiltered: Binding<[Ingredient]> {
+        Binding (
+            get: {
+                if self.presetIngredientsSearchTerm == "" { return self.presetIngredients }
+                return self.presetIngredients.filter {
+                    $0.name.lowercased().contains(self.presetIngredientsSearchTerm.lowercased())
+                }
+            },
+            set: {
+                self.presetIngredients = $0
+            }
+        )
+    }
+
     
+        
     init() {
         load()
     }
@@ -45,8 +76,9 @@ class IngredientManager: ObservableObject {
     func save() {
         let archiveURL = getArchiveURL()
         let propertyListEncoder = PropertyListEncoder()
-        let encodedIngredients = try? propertyListEncoder.encode(ingredients)
-        try? encodedIngredients?.write(to: archiveURL, options: .noFileProtection)
+        let encodedSelectedIngredients = try? propertyListEncoder.encode(selectedIngredients)
+        try? encodedSelectedIngredients?.write(to: archiveURL, options: .noFileProtection)
+
     }
     
     func load() {
@@ -55,7 +87,7 @@ class IngredientManager: ObservableObject {
                 
         if let retrievedIngredientData = try? Data(contentsOf: archiveURL),
             let ingredientsDecoded = try? propertyListDecoder.decode([Ingredient].self, from: retrievedIngredientData) {
-            ingredients = ingredientsDecoded
+            selectedIngredients = ingredientsDecoded
         }
     }
 }
