@@ -12,6 +12,9 @@ struct NewRecipeView: View {
     @State private var recipeTitle = ""
     @State private var recipePoints = 0
     @State private var recipeInstructions = ""
+    @Binding var sourceArray: [Recipe]
+    @State private var whitespaceChecker = ""
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Form {
@@ -27,12 +30,28 @@ struct NewRecipeView: View {
             Section("Instructions") {
                 TextEditor(text: $recipeInstructions)
             }
+            Section("Actions") {
+                Button("Save") {
+                    whitespaceChecker = recipeTitle.replacingOccurrences(of: " ", with: "")
+                    if !whitespaceChecker.isEmpty {
+                        let recipe = Recipe(recipeTitle: recipeTitle, recipePoints: recipePoints, recipeInstructions: recipeInstructions)
+                        sourceArray.append(recipe)
+                    } else {
+                        let recipe = Recipe(recipeTitle: "Untitled", recipePoints: recipePoints, recipeInstructions: recipeInstructions)
+                        sourceArray.append(recipe)
+                    }
+                    dismiss()
+                }
+                Button("Cancel", role: .destructive) {
+                    dismiss()
+                }
+            }
         }
     }
 }
 
 struct NewRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRecipeView()
+        NewRecipeView(sourceArray: .constant([]))
     }
 }

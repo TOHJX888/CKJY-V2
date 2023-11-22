@@ -44,12 +44,26 @@ class IngredientManager: ObservableObject {
     
     // MARK: Recipes
     
-    //@Published var recipes: [Recipe] = [] {
-    //    didSet {
-    //        save()
-    //    }
-    //}
-    //@Published var recipeSearchTerm = ""
+    @Published var recipes: [Recipe] = [] {
+        didSet {
+            save()
+        }
+    }
+    @Published var recipesSearchTerm = ""
+
+    var recipesFiltered: Binding<[Recipe]> {
+        Binding (
+            get: {
+                if self.recipesSearchTerm == "" { return self.recipes }
+                return self.recipes.filter {
+                    $0.recipeTitle.lowercased().contains(self.recipesSearchTerm.lowercased())
+                }
+            },
+            set: {
+                self.recipes = $0
+            }
+        )
+    }
     
     // MARK: Preset Ingredients
 

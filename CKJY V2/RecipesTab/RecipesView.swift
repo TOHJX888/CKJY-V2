@@ -14,10 +14,10 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            List(ingredientManager.selectedIngredientsFiltered, editActions: [.all]) { $ingredient in
-                IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+            List(ingredientManager.recipesFiltered, editActions: [.all]) { $recipe in
+                RecipeRowView(recipe: Binding(get: { recipe }, set: { recipe = $0 }))
             }
-            .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
+            .searchable(text: $ingredientManager.recipesSearchTerm)
             .navigationTitle("My Recipes")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -38,7 +38,7 @@ struct RecipesView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewRecipeView()
+                NewRecipeView(sourceArray: .constant([]))
             }
         }
     }
