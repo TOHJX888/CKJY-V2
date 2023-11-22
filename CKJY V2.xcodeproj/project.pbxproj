@@ -21,6 +21,7 @@
 		992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884702B0C99AD00618C2C /* IngredientManager.swift */; };
 		99775F212B0D95F1000BBD76 /* IngredientManagerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F202B0D95F1000BBD76 /* IngredientManagerNew.swift */; };
 		99775F232B0D9780000BBD76 /* IngredientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F222B0D9780000BBD76 /* IngredientNew.swift */; };
+		99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		992884702B0C99AD00618C2C /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
 		99775F202B0D95F1000BBD76 /* IngredientManagerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManagerNew.swift; sourceTree = "<group>"; };
 		99775F222B0D9780000BBD76 /* IngredientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNew.swift; sourceTree = "<group>"; };
+		99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNewRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				9928843E2B0C88BB00618C2C /* ContentView.swift */,
 				992884662B0C88D900618C2C /* FoodListView.swift */,
 				9928846E2B0C984D00618C2C /* IngredientRowView.swift */,
+				99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */,
 				9928846C2B0C91CD00618C2C /* NewIngredientView.swift */,
 				992884682B0C895000618C2C /* Ingredient.swift */,
 				99775F222B0D9780000BBD76 /* IngredientNew.swift */,
@@ -279,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				992884692B0C895000618C2C /* Ingredient.swift in Sources */,
+				99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */,
 				992884672B0C88D900618C2C /* FoodListView.swift in Sources */,
 				9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */,
 				99775F232B0D9780000BBD76 /* IngredientNew.swift in Sources */,

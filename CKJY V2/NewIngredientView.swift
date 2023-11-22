@@ -17,8 +17,12 @@ struct NewIngredientView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                
+            List(ingredientManagerNew.ingredientsNewFiltered, editActions: [.all]) { $ingredientNew in
+               // NavigationLink {
+                    //FoodListDetailView(ingredient: $ingredient)
+             //   } label: {
+                IngredientNewRowView(ingredientNew: Binding(get: { ingredientNew }, set: { ingredientNew = $0 }))
+          //      }
             }
             .searchable(text: $ingredientManagerNew.searchTermNew)
             .navigationTitle("New Ingredient")

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class IngredientManagerNew: ObservableObject {
-    @Published var ingredientsNew: [IngredientNew] = [] {
+    @Published var ingredientsNew: [IngredientNew] = [IngredientNew(name: "Broccoli", points: "1"), IngredientNew(name: "Apple", points: "1")] {
         didSet {
             save()
         }
