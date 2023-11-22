@@ -11,6 +11,7 @@ struct NewRecipeView: View {
     
     @State private var recipeTitle = ""
     @State private var recipePoints = 0
+    @State private var recipeInstructions = ""
     
     var body: some View {
         Form {
@@ -22,6 +23,9 @@ struct NewRecipeView: View {
             }
             Section("Ingredients") {
                 
+            }
+            Section("Instructions") {
+                TextEditor(text: $recipeInstructions)
             }
         }
     }

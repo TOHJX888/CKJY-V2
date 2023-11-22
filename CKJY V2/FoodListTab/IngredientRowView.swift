@@ -39,7 +39,7 @@ struct IngredientRowView: View {
 
 struct IngredientRowView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientRowView(ingredient: .constant(Ingredient(name: "Testing", points: 0)))
+        IngredientRowView(ingredient: .constant(Ingredient(name: "Testing", points: 0, image: "")))
             .environmentObject(IngredientManager())
     }
 }
