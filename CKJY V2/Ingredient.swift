@@ -10,7 +10,7 @@ import Foundation
 struct Ingredient: Identifiable, Codable {
     var id = UUID()
     var name: String
-    var points = ""
+    var points: Int
     var isEaten: Bool = false
 }
 

@@ -19,28 +19,25 @@ struct IngredientNewRowView: View {
             Image(systemName: "circle")
             VStack {
                 Text(ingredientNew.name)
-                if !ingredientNew.points.isEmpty {
-                    HStack {
-                        Text(ingredientNew.points)
-                        Image(systemName: "leaf.fill")
-                    }
-                    .font(.footnote)
-                    .foregroundColor(.gray)
+                HStack {
+                    Text("\(ingredientNew.points)")
+                    Image(systemName: "leaf.fill")
                 }
+                .font(.footnote)
+                .foregroundColor(.gray)
             }
-        }
-        .onTapGesture {
-            //ingredientName = ingredientNew.name
         }
         .onAppear {
             // check whether this is in ingredientManager.selectedIngredients
+            
+            
         }
     }
 }
 
 struct IngredientNewRowView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientNewRowView(ingredientNew: .constant(Ingredient(name: "Testing")))
+        IngredientNewRowView(ingredientNew: .constant(Ingredient(name: "Testing", points: 0)))
             .environmentObject(IngredientManager())
     }
 }

@@ -9,9 +9,6 @@ import SwiftUI
 
 struct NewIngredientView: View {
     
-    
-    @State private var ingredientName = ""
-    @State private var ingredientPoints = ""
 //    @State var selectedIngredient = Ingredient(name: "")
     
     @Environment(\.dismiss) var dismiss
@@ -20,11 +17,12 @@ struct NewIngredientView: View {
     var body: some View {
         NavigationStack {
             List(ingredientManager.presetIngredientsFiltered, editActions: [.all]) { $presetIngredient in
-                Button {
-                    ingredientManager.selectedIngredients.append(presetIngredient)
-                } label: {
-                    IngredientNewRowView(ingredientNew: $presetIngredient)
-                }
+                IngredientNewRowView(ingredientNew: $presetIngredient)
+                    .foregroundColor(presetIngredient.points == 0 ? .red : presetIngredient.points == 1 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
+                    .onTapGesture {
+                        ingredientManager.selectedIngredients.append(presetIngredient)
+                        
+                    }
             }
             .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             .navigationTitle("New Ingredient")

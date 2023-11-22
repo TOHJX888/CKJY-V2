@@ -36,8 +36,9 @@ class IngredientManager: ObservableObject {
     // MARK: Preset Ingredients
 
     @Published var presetIngredients: [Ingredient] = [
-        Ingredient(name: "Broccoli", points: "1"),
-        Ingredient(name: "Apple", points: "1")
+        Ingredient(name: "Broccoli", points: 2),
+        Ingredient(name: "Instant Noodles", points: 0),
+        Ingredient(name: "Chicken", points: 1)
     ] {
         didSet {
             save()
