@@ -11,6 +11,7 @@ struct Ingredient: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
     var points: Int
+    var image: String
     var isEaten: Bool = false
     
     static func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {

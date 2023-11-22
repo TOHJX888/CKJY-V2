@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct NewRecipeView: View {
+    
+    @State private var recipeTitle = ""
+    @State private var recipePoints = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section("General") {
+                HStack {
+                    TextField("Title", text: $recipeTitle)
+                }
+                Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
+            }
+            Section("Ingredients") {
+                
+            }
+        }
     }
 }
 
