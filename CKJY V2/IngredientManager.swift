@@ -33,6 +33,15 @@ class IngredientManager: ObservableObject {
         )
     }
 
+    // MARK: Total Points
+    
+    @Published var totalPoints = 0
+    {
+        didSet {
+            save()
+        }
+    }
+    
     // MARK: Preset Ingredients
 
     @Published var presetIngredients: [Ingredient] = [
