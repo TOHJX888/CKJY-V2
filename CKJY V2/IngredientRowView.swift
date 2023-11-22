@@ -29,7 +29,7 @@ struct IngredientRowView: View {
                 .strikethrough(ingredient.isEaten)
             }
         }
-        .foregroundColor(ingredient.points == 0 ? .red : ingredient.points == 1 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
+        .foregroundColor(ingredient.points == -1 ? .red : ingredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
     }
 }
 

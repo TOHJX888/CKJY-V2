@@ -26,6 +26,9 @@ struct FoodListView: View {
                     EditButton()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    Text("HI")
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showSheet = true
                     } label: {

@@ -27,10 +27,21 @@ struct IngredientNewRowView: View {
                 .foregroundColor(.gray)
             }
         }
+        .background(isSelected ? Color(red: 0.9, green: 0.9, blue: 0.9) : .white)
         .onAppear {
             // check whether this is in ingredientManager.selectedIngredients
-            
-            
+            /*
+             for each item in ingredientManager.selectedIngredients {
+             if ingredientManager.selectedIngredients[item] == this item {
+             isSelected = True
+             }
+             }
+             */
+            for item in ingredientManager.selectedIngredients {
+                if item == ingredientNew {
+                    isSelected = true
+                }
+            }
         }
     }
 }
