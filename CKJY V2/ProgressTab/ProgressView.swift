@@ -72,6 +72,8 @@ struct ProgressView: View {
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
         ProgressView()
+            .environmentObject(IngredientManager())
     }
 }
+
 
