@@ -26,24 +26,7 @@ struct NewIngredientView: View {
             }
             .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             .navigationTitle("New Ingredient")
-            
-//            Form {
-//                Section("Information") {
-//                    TextField("Name", text: selectedIngredient.name)
-//                    TextField("Points", text: selectedIngredient.points)
-//                }
-//                Section("Actions") {
-//                    Button("Save") {
-//                        let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
-//                        ingredientManager.ingredientsNew.append(ingredient)
-//                        dismiss()
-//                    }
-//                    Button("Cancel", role: .destructive) {
-//                        dismiss()
-//                    }
-//                }
-//            }
-        } //navigationStack
+        }
     }
 }
 
