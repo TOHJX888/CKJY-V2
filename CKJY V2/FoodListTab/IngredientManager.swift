@@ -42,6 +42,15 @@ class IngredientManager: ObservableObject {
         }
     }
     
+    // MARK: Recipes
+    
+    //@Published var recipes: [Recipe] = [] {
+    //    didSet {
+    //        save()
+    //    }
+    //}
+    //@Published var recipeSearchTerm = ""
+    
     // MARK: Preset Ingredients
 
     @Published var presetIngredients: [Ingredient] = [

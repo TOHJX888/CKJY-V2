@@ -22,6 +22,7 @@
 		99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */; };
 		99775F272B0DCE64000BBD76 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F262B0DCE64000BBD76 /* RecipesView.swift */; };
 		99775F2C2B0DCEEF000BBD76 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F2B2B0DCEEF000BBD76 /* ProgressView.swift */; };
+		99775F2E2B0DD71B000BBD76 /* NewRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F2D2B0DD71B000BBD76 /* NewRecipeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNewRowView.swift; sourceTree = "<group>"; };
 		99775F262B0DCE64000BBD76 /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		99775F2B2B0DCEEF000BBD76 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		99775F2D2B0DD71B000BBD76 /* NewRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				99775F262B0DCE64000BBD76 /* RecipesView.swift */,
+				99775F2D2B0DD71B000BBD76 /* NewRecipeView.swift */,
 			);
 			path = RecipesTab;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */,
 				9928843F2B0C88BB00618C2C /* ContentView.swift in Sources */,
 				9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */,
+				99775F2E2B0DD71B000BBD76 /* NewRecipeView.swift in Sources */,
 				9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */,
 				99775F2C2B0DCEEF000BBD76 /* ProgressView.swift in Sources */,
 				99775F272B0DCE64000BBD76 /* RecipesView.swift in Sources */,
