@@ -10,12 +10,14 @@ import SwiftUI
 struct IngredientRowView: View {
     
     @Binding var ingredient: Ingredient
+    @EnvironmentObject var ingredientManager: IngredientManager
     
     var body: some View {
         HStack {
             Image(systemName: ingredient.isEaten ? "checkmark.circle.fill" : "circle")
                 .onTapGesture {
                     ingredient.isEaten.toggle()
+                    ingredientManager.totalPoints += ingredient.isEaten ? ingredient.points : -1 * ingredient.points
                 }
             VStack {
                 Text(ingredient.name)
@@ -36,5 +38,6 @@ struct IngredientRowView: View {
 struct IngredientRowView_Previews: PreviewProvider {
     static var previews: some View {
         IngredientRowView(ingredient: .constant(Ingredient(name: "Testing", points: 0)))
+            .environmentObject(IngredientManager())
     }
 }

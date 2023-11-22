@@ -26,7 +26,10 @@ struct FoodListView: View {
                     EditButton()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Text("HI")
+                    Text("\(ingredientManager.totalPoints)")
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "leaf.fill")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
