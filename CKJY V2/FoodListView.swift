@@ -13,6 +13,7 @@ struct FoodListView: View {
     @State private var showSheet = false
     @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var ingredientManagerNew: IngredientManagerNew
     
     var body: some View {
         NavigationStack {
@@ -38,7 +39,7 @@ struct FoodListView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewIngredientView(sourceArray: $ingredientManager.ingredients)
+                NewIngredientView(sourceArray: $ingredientManagerNew.ingredientsNew)
             }
         }
     }
@@ -48,5 +49,6 @@ struct FoodListView_Previews: PreviewProvider {
     static var previews: some View {
         FoodListView()
             .environmentObject(IngredientManager())
+            .environmentObject(IngredientManagerNew())
     }
 }

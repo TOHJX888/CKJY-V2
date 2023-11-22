@@ -11,31 +11,41 @@ struct NewIngredientView: View {
     
     @State private var ingredientName = ""
     @State private var ingredientPoints = ""
-    @Binding var sourceArray: [Ingredient]
+    @Binding var sourceArray: [IngredientNew]
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var ingredientManagerNew: IngredientManagerNew
     
     var body: some View {
-        Form {
-            Section("Information") {
-                TextField("Name", text: $ingredientName)
-                TextField("Points", text: $ingredientPoints)
+        NavigationStack {
+            List {
+                
             }
-            Section("Actions") {
-                Button("Save") {
-                    let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
-                    sourceArray.append(ingredient)
-                    dismiss()
+            .searchable(text: $ingredientManagerNew.searchTermNew)
+            .navigationTitle("New Ingredient")
+            
+            Form {
+                Section("Information") {
+                    TextField("Name", text: $ingredientName)
+                    TextField("Points", text: $ingredientPoints)
                 }
-                Button("Cancel", role: .destructive) {
-                    dismiss()
+                Section("Actions") {
+                    Button("Save") {
+                        let ingredientNew = IngredientNew(name: ingredientName, points: ingredientPoints)
+                        sourceArray.append(ingredientNew)
+                        dismiss()
+                    }
+                    Button("Cancel", role: .destructive) {
+                        dismiss()
+                    }
                 }
             }
-        }
+        } //navigationStack
     }
 }
 
 struct NewIngredientView_Previews: PreviewProvider {
     static var previews: some View {
         NewIngredientView(sourceArray: .constant([]))
+            .environmentObject(IngredientManagerNew())
     }
 }
