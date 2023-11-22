@@ -14,7 +14,23 @@ class IngredientManager: ObservableObject {
             save()
         }
     }
-        
+    
+    @Published var searchTerm = ""
+    
+    var ingredientsFiltered: Binding<[Ingredient]> {
+        Binding (
+            get: {
+                if self.searchTerm == "" { return self.ingredients }
+                return self.ingredients.filter {
+                    $0.name.lowercased().contains(self.searchTerm.lowercased())
+                }
+            },
+            set: {
+                self.ingredients = $0
+            }
+        )
+    }
+    
     init() {
         load()
     }
