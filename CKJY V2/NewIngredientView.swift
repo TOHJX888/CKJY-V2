@@ -9,9 +9,10 @@ import SwiftUI
 
 struct NewIngredientView: View {
     
+    
     @State private var ingredientName = ""
     @State private var ingredientPoints = ""
-    @Binding var sourceArray: [IngredientNew]
+    @Binding var sourceArray: [Ingredient]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ingredientManagerNew: IngredientManagerNew
     
@@ -34,8 +35,8 @@ struct NewIngredientView: View {
                 }
                 Section("Actions") {
                     Button("Save") {
-                        let ingredientNew = IngredientNew(name: ingredientName, points: ingredientPoints)
-                        sourceArray.append(ingredientNew)
+                        let ingredient = Ingredient(name: ingredientName, points: ingredientPoints)
+                        sourceArray.append(ingredient)
                         dismiss()
                     }
                     Button("Cancel", role: .destructive) {

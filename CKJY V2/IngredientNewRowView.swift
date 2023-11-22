@@ -13,13 +13,9 @@ struct IngredientNewRowView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: ingredientNew.isEaten ? "checkmark.circle.fill" : "circle")
-                .onTapGesture {
-                    ingredientNew.isEaten.toggle()
-                }
+            Image(systemName: "circle")
             VStack {
                 Text(ingredientNew.name)
-                    .strikethrough(ingredientNew.isEaten)
                 if !ingredientNew.points.isEmpty {
                     HStack {
                         Text(ingredientNew.points)
@@ -27,9 +23,11 @@ struct IngredientNewRowView: View {
                     }
                     .font(.footnote)
                     .foregroundColor(.gray)
-                    .strikethrough(ingredientNew.isEaten)
                 }
             }
+        }
+        .onTapGesture {
+//
         }
     }
 }

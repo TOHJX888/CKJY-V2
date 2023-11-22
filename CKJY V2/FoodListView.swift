@@ -18,11 +18,7 @@ struct FoodListView: View {
     var body: some View {
         NavigationStack {
             List(ingredientManager.ingredientsFiltered, editActions: [.all]) { $ingredient in
-               // NavigationLink {
-                    //FoodListDetailView(ingredient: $ingredient)
-             //   } label: {
                 IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
-          //      }
             }
             .searchable(text: $ingredientManager.searchTerm)
             .navigationTitle("My Food List")
@@ -39,7 +35,7 @@ struct FoodListView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewIngredientView(sourceArray: $ingredientManagerNew.ingredientsNew)
+                NewIngredientView(sourceArray: $ingredientManager.ingredients)
             }
         }
     }
