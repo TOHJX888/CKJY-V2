@@ -38,7 +38,7 @@ struct RecipesView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewRecipeView(sourceArray: .constant([]))
+                NewRecipeView(sourceArray: $ingredientManager.recipes)
             }
         }
     }
