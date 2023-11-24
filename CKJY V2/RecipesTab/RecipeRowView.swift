@@ -14,7 +14,7 @@ struct RecipeRowView: View {
     
     var body: some View {
         HStack {
-            VStack {
+            VStack(alignment: .leading) {
                 Text(recipe.recipeTitle)
                 HStack {
                     Text("\(recipe.recipePoints)")

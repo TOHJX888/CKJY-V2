@@ -17,7 +17,7 @@ struct IngredientNewRowView: View {
     var body: some View {
         HStack {
             Image(systemName: "circle")
-            VStack {
+            VStack(alignment: .leading) {
                 Text(ingredientNew.name)
                 HStack {
                     Text("\(ingredientNew.points)")

@@ -19,7 +19,7 @@ struct IngredientRowView: View {
                     ingredient.isEaten.toggle()
                     ingredientManager.totalPoints += ingredient.isEaten ? ingredient.points : -1 * ingredient.points
                 }
-            VStack {
+            VStack(alignment: .leading) {
                 Text(ingredient.name)
                     .strikethrough(ingredient.isEaten)
                 HStack {
