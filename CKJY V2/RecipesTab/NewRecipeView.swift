@@ -11,7 +11,7 @@ struct NewRecipeView: View {
     
     @State private var recipeTitle = ""
     @State private var recipePoints = 0
-    @State private var recipeInstructions = ""
+    @State private var recipeDetails = ""
     @Binding var sourceArray: [Recipe]
     @State private var whitespaceChecker = ""
     @Environment(\.dismiss) var dismiss
@@ -24,20 +24,17 @@ struct NewRecipeView: View {
                 }
                 Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
             }
-            Section("Ingredients") {
-                
-            }
-            Section("Instructions") {
-                TextEditor(text: $recipeInstructions)
+            Section("Details") {
+                TextEditor(text: $recipeDetails)
             }
             Section("Actions") {
                 Button("Save") {
                     whitespaceChecker = recipeTitle.replacingOccurrences(of: " ", with: "")
                     if !whitespaceChecker.isEmpty {
-                        let recipe = Recipe(recipeTitle: recipeTitle, recipePoints: recipePoints, recipeInstructions: recipeInstructions)
+                        let recipe = Recipe(recipeTitle: recipeTitle, recipePoints: recipePoints, recipeDetails: recipeDetails)
                         sourceArray.append(recipe)
                     } else {
-                        let recipe = Recipe(recipeTitle: "Untitled", recipePoints: recipePoints, recipeInstructions: recipeInstructions)
+                        let recipe = Recipe(recipeTitle: "Untitled", recipePoints: recipePoints, recipeDetails: recipeDetails)
                         sourceArray.append(recipe)
                     }
                     dismiss()

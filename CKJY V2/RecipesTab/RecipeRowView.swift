@@ -32,7 +32,7 @@ struct RecipeRowView: View {
 
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeRowView(recipe: .constant(Recipe(recipeTitle: "Testing", recipePoints: 0, recipeInstructions: "do whatever lol")))
+        RecipeRowView(recipe: .constant(Recipe(recipeTitle: "Testing", recipePoints: 0, recipeDetails: "do whatever lol")))
             .environmentObject(IngredientManager())
     }
 }

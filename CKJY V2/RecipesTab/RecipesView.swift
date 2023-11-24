@@ -15,7 +15,11 @@ struct RecipesView: View {
     var body: some View {
         NavigationStack {
             List(ingredientManager.recipesFiltered, editActions: [.all]) { $recipe in
-                RecipeRowView(recipe: Binding(get: { recipe }, set: { recipe = $0 }))
+                NavigationLink {
+                    RecipeDetailVIew(recipe: $recipe)
+                } label: {
+                    RecipeRowView(recipe: Binding(get: { recipe }, set: { recipe = $0 }))
+                }
             }
             .searchable(text: $ingredientManager.recipesSearchTerm)
             .navigationTitle("My Recipes")

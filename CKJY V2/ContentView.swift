@@ -26,7 +26,6 @@ struct ContentView: View {
                     Label("Progress", systemImage: "circle.circle")
                 }
         }
-        .padding()
     }
 }
 

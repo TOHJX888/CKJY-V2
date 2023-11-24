@@ -11,5 +11,5 @@ struct Recipe: Identifiable, Codable {
     var id = UUID()
     var recipeTitle: String
     var recipePoints: Int
-    var recipeInstructions: String
+    var recipeDetails: String
 }
