@@ -13,6 +13,7 @@ struct RecipeDetailView: View {
     @EnvironmentObject var ingredientManager: IngredientManager
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var pointsChange = 0
     
     
     var body: some View {
@@ -29,19 +30,21 @@ struct RecipeDetailView: View {
             Section("Actions") {
                 Button("Tap when eaten") {
                     alertMessage = "Are you sure you have eaten this?"
+                    pointsChange = recipe.recipePoints
                     showAlert = true
                 }
                 Button("Tap to undo", role: .destructive) {
                     alertMessage = "Are you sure you want to undo this action?"
+                    pointsChange = recipe.recipePoints * -1
                     showAlert = true
                 }
             }
             .alert(alertMessage, isPresented: $showAlert) {
                 Button("Continue", role: .destructive) {
-                    ingredientManager.totalPoints += alertMessage == "Are you sure you have eaten this?" ? recipe.recipePoints : -1 * recipe.recipePoints
+                    ingredientManager.totalPoints += pointsChange
                 }
             } message: {
-                Text("This will result in a change of \(alertMessage == "Are you sure you have eaten this?" ? recipe.recipePoints : -1 * recipe.recipePoints) point(s).")
+                Text("This will result in a change of \(pointsChange) \(pointsChange == 1 ? "point" : "points").")
             }
         }
     }
