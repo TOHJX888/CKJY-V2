@@ -9,10 +9,9 @@ import SwiftUI
 
 struct NewIngredientView: View {
     
-//    @State var selectedIngredient = Ingredient(name: "")
-    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ingredientManager: IngredientManager
+    @State private var showAlert = false
     
     var body: some View {
         NavigationStack {
@@ -20,8 +19,12 @@ struct NewIngredientView: View {
                 IngredientNewRowView(ingredientNew: $presetIngredient)
                     .foregroundColor(presetIngredient.points == -1 ? .red : presetIngredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
                     .onTapGesture {
-                        ingredientManager.selectedIngredients.append(presetIngredient)
-                        
+                        showAlert = true
+                    }
+                    .alert("Are you sure you want to add this to your Food List?", isPresented: $showAlert) {
+                        Button("Continue", role: .destructive) {
+                            ingredientManager.selectedIngredients.append(presetIngredient)
+                        }
                     }
             }
             .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
