@@ -41,7 +41,7 @@ struct RecipeDetailView: View {
                     ingredientManager.totalPoints += alertMessage == "Are you sure you have eaten this?" ? recipe.recipePoints : -1 * recipe.recipePoints
                 }
             } message: {
-                Text("This will result in a change of \(alertMessage == "Are you sure you have eaten this?" ? recipe.recipePoints : -1 * recipe.recipePoints)")
+                Text("This will result in a change of \(alertMessage == "Are you sure you have eaten this?" ? recipe.recipePoints : -1 * recipe.recipePoints) point(s).")
             }
         }
     }
