@@ -16,7 +16,7 @@ struct RecipesView: View {
         NavigationStack {
             List(ingredientManager.recipesFiltered, editActions: [.all]) { $recipe in
                 NavigationLink {
-                    RecipeDetailVIew(recipe: $recipe)
+                    RecipeDetailView(recipe: $recipe)
                 } label: {
                     RecipeRowView(recipe: Binding(get: { recipe }, set: { recipe = $0 }))
                 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecipeDetailVIew: View {
+struct RecipeDetailView: View {
     
     @Binding var recipe: Recipe
     
@@ -26,8 +26,8 @@ struct RecipeDetailVIew: View {
     }
 }
 
-struct RecipeDetailVIew_Previews: PreviewProvider {
+struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetailVIew(recipe: .constant(Recipe(recipeTitle: "Broccoli Soup", recipePoints: 4, recipeDetails: "make broccoli soup and eat it lol")))
+        RecipeDetailView(recipe: .constant(Recipe(recipeTitle: "Broccoli Soup", recipePoints: 4, recipeDetails: "make broccoli soup and eat it lol")))
     }
 }
