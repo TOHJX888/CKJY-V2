@@ -11,6 +11,8 @@ struct ProgressView: View {
     
     @EnvironmentObject var ingredientManager: IngredientManager
     @State private var pointsGoal = 10
+    @State private var newPointsGoal = 10
+    @State private var showSummary = false
     let lastActionDateKey = "lastActionDate"
     
     var body: some View {
@@ -50,7 +52,20 @@ struct ProgressView: View {
         .onAppear {
             performActionIfNeeded()
         }
-        
+        .sheet(isPresented: $showSummary, onDismiss: {
+            pointsGoal = newPointsGoal
+        }) {
+            Form {
+                Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(pointsGoal) * 100))% of your goal! Congratulations!")
+                Button("inc") {
+                    ingredientManager.totalPoints += 1
+                }
+                Button("dec") {
+                    ingredientManager.totalPoints -= 1
+                }
+                Stepper("New Goal: \(newPointsGoal)", value: $newPointsGoal, step: 5)
+            }
+        }
     }
     
     func performActionIfNeeded() {
@@ -58,8 +73,8 @@ struct ProgressView: View {
         let now = Date()
 
         // Check if today is Monday
-        if calendar.component(.weekday, from: now) == 2 {
-            // Perform your action here
+        if calendar.component(.weekday, from: now) == 6 {
+            showSummary = true
             print("Action performed on Monday!")
 
             // Update UserDefaults with the current date
