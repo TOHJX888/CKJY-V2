@@ -14,11 +14,33 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            List(ingredientManager.recipesFiltered, editActions: [.all]) { $recipe in
-                NavigationLink {
-                    RecipeDetailView(recipe: $recipe)
-                } label: {
-                    RecipeRowView(recipe: Binding(get: { recipe }, set: { recipe = $0 }))
+            List() {
+                Section("Healthy") {
+                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
+                        NavigationLink {
+                            RecipeDetailView(recipe: $recipe)
+                        } label: {
+                            RecipeRowView(recipe: $recipe)
+                        }
+                    }
+                }
+                Section("Neutral") {
+                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
+                        NavigationLink {
+                            RecipeDetailView(recipe: $recipe)
+                        } label: {
+                            RecipeRowView(recipe: $recipe)
+                        }
+                    }
+                }
+                Section("Unhealthy") {
+                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
+                        NavigationLink {
+                            RecipeDetailView(recipe: $recipe)
+                        } label: {
+                            RecipeRowView(recipe: $recipe)
+                        }
+                    }
                 }
             }
             .searchable(text: $ingredientManager.recipesSearchTerm)
@@ -45,8 +67,9 @@ struct RecipesView: View {
                 NewRecipeView(sourceArray: $ingredientManager.recipes)
             }
         }
-    }
+        }
 }
+
 
 struct RecipesView_Previews: PreviewProvider {
     static var previews: some View {

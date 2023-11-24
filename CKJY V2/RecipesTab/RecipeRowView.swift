@@ -10,8 +10,7 @@ import SwiftUI
 struct RecipeRowView: View {
     
     @Binding var recipe: Recipe
-    @EnvironmentObject var ingredientManager: IngredientManager
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -33,6 +32,5 @@ struct RecipeRowView: View {
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
         RecipeRowView(recipe: .constant(Recipe(recipeTitle: "Testing", recipePoints: 0, recipeDetails: "do whatever lol")))
-            .environmentObject(IngredientManager())
     }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FoodListView: View {
     
-    //@State private var sampleIngredients = [Ingredient(name: "Broccoli", points: 1), Ingredient(name: "Apple", points: 1)]
     @State private var showSheet = false
     @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
