@@ -12,7 +12,71 @@ class IngredientManager: ObservableObject {
     
     // MARK: Selected Ingredients
     
-    @Published var selectedIngredients: [Ingredient] = [
+    @Published var selectedIngredients: [Ingredient] = [] {
+        didSet {
+            save()
+        }
+    }
+    @Published var selectedIngredientsSearchTerm = ""
+
+    var selectedIngredientsFiltered: Binding<[Ingredient]> {
+        Binding (
+            get: {
+                if self.selectedIngredientsSearchTerm == "" { return self.selectedIngredients }
+                return self.selectedIngredients.filter {
+                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased())
+                }
+            },
+            set: {
+                self.selectedIngredients = $0
+            }
+        )
+    }
+
+    // MARK: Total Points
+    
+    @Published var totalPoints = 0
+    {
+        didSet {
+            save()
+        }
+    }
+    
+    // MARK: Points Goal
+    
+    @Published var pointsGoal = 30
+    {
+        didSet {
+            save()
+        }
+    }
+    
+    // MARK: Recipes
+    
+    @Published var recipes: [Recipe] = [] {
+        didSet {
+            save()
+        }
+    }
+    @Published var recipesSearchTerm = ""
+
+    var recipesFiltered: Binding<[Recipe]> {
+        Binding (
+            get: {
+                if self.recipesSearchTerm == "" { return self.recipes }
+                return self.recipes.filter {
+                    $0.recipeTitle.lowercased().contains(self.recipesSearchTerm.lowercased())
+                }
+            },
+            set: {
+                self.recipes = $0
+            }
+        )
+    }
+    
+    // MARK: Preset Ingredients
+
+    @Published var presetIngredients: [Ingredient] = [
         Ingredient(name: "Zucchini", points: 1, image: "https://tinyurl.com/m2pm38p5"),
         Ingredient(name: "Yellow squash", points: 0, image: " https://tinyurl.com/mu6u63hk"),
         Ingredient(name: "Yellow onions  ", points: 0, image: " https://tinyurl.com/bccykbax"),
@@ -494,74 +558,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Brown sugar", points: 0, image: "https://tinyurl.com/chfd5f7p"),
         Ingredient(name: "Brown rice syrup", points: 0, image: "https://tinyurl.com/5n9bduux"),
         Ingredient(name: "Brown rice", points: 1, image: "")
-    ] {
-        didSet {
-            save()
-        }
-    }
-    @Published var selectedIngredientsSearchTerm = ""
-
-    var selectedIngredientsFiltered: Binding<[Ingredient]> {
-        Binding (
-            get: {
-                if self.selectedIngredientsSearchTerm == "" { return self.selectedIngredients }
-                return self.selectedIngredients.filter {
-                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased())
-                }
-            },
-            set: {
-                self.selectedIngredients = $0
-            }
-        )
-    }
-
-    // MARK: Total Points
-    
-    @Published var totalPoints = 0
-    {
-        didSet {
-            save()
-        }
-    }
-    
-    // MARK: Points Goal
-    
-    @Published var pointsGoal = 30
-    {
-        didSet {
-            save()
-        }
-    }
-    
-    // MARK: Recipes
-    
-    @Published var recipes: [Recipe] = [] {
-        didSet {
-            save()
-        }
-    }
-    @Published var recipesSearchTerm = ""
-
-    var recipesFiltered: Binding<[Recipe]> {
-        Binding (
-            get: {
-                if self.recipesSearchTerm == "" { return self.recipes }
-                return self.recipes.filter {
-                    $0.recipeTitle.lowercased().contains(self.recipesSearchTerm.lowercased())
-                }
-            },
-            set: {
-                self.recipes = $0
-            }
-        )
-    }
-    
-    // MARK: Preset Ingredients
-
-    @Published var presetIngredients: [Ingredient] = [
-        Ingredient(name: "Broccoli", points: 1),
-        Ingredient(name: "Instant Noodles", points: -1),
-        Ingredient(name: "Chicken", points: 0)
     ] {
         didSet {
             save()
