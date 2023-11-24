@@ -11,7 +11,7 @@ struct NewIngredientView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ingredientManager: IngredientManager
-    @State private var showAlert = false
+    @State private var selectedIngredient: Ingredient?
     
     var body: some View {
         NavigationStack {
@@ -19,16 +19,18 @@ struct NewIngredientView: View {
                 IngredientNewRowView(ingredientNew: $presetIngredient)
                     .foregroundColor(presetIngredient.points == -1 ? .red : presetIngredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
                     .onTapGesture {
-                        showAlert = true
-                    }
-                    .alert("Are you sure you want to add this to your Food List?", isPresented: $showAlert) {
-                        Button("Continue", role: .destructive) {
-                            ingredientManager.selectedIngredients.append(presetIngredient)
-                        }
+                        selectedIngredient = presetIngredient
                     }
             }
             .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             .navigationTitle("New Ingredient")
+            .alert(item: $selectedIngredient) { ing in
+                Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
+                      primaryButton: .default(Text("Yes"), action: {
+                    ingredientManager.selectedIngredients.append(ing)
+                }),
+                      secondaryButton: .cancel())
+            }
         }
     }
 }

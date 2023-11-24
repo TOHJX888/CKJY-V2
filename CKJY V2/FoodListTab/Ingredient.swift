@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Ingredient: Identifiable, Codable, Equatable {
+struct Ingredient: Identifiable, Codable, Equatable, Comparable {
+    
     var id = UUID()
     var name: String
     var points: Int
@@ -16,6 +17,10 @@ struct Ingredient: Identifiable, Codable, Equatable {
     
     static func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {
         lhs.name == rhs.name 
+    }
+    
+    static func < (lhs: Ingredient, rhs: Ingredient) -> Bool {
+        return lhs.name < rhs.name
     }
 }
 

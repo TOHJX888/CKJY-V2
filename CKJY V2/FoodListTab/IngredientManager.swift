@@ -583,6 +583,7 @@ class IngredientManager: ObservableObject {
     
         
     init() {
+        presetIngredients.sort(by: { $0.name < $1.name })
         load()
     }
     
