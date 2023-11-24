@@ -95,6 +95,7 @@ class IngredientManager: ObservableObject {
     
     @Published var recipes: [Recipe] = [] {
         didSet {
+            recipes.sort(by: { $0.recipeTitle < $1.recipeTitle })
             save()
         }
     }

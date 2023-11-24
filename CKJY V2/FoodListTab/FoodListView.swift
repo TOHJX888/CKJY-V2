@@ -17,16 +17,22 @@ struct FoodListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(ingredientManager.selectedIngredientsFilteredHealthy, editActions: [.all]) { $ingredient in
-                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
-                }
-                Spacer()
-                List(ingredientManager.selectedIngredientsFilteredNeutral, editActions: [.all]) { $ingredient in
-                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
-                }
-                Spacer()
-                List(ingredientManager.selectedIngredientsFilteredUnhealthy, editActions: [.all]) { $ingredient in
-                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+                List() {
+                    Section("Healthy") {
+                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 1 })) { $ingredient in
+                            IngredientRowView(ingredient: $ingredient)
+                        }
+                    }
+                    Section("Neutral") {
+                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 0 })) { $ingredient in
+                            IngredientRowView(ingredient: $ingredient)
+                        }
+                    }
+                    Section("Unhealthy") {
+                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == -1 })) { $ingredient in
+                            IngredientRowView(ingredient: $ingredient)
+                        }
+                    }
                 }
             }
             .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
