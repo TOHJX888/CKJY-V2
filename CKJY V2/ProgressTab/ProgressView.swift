@@ -10,7 +10,6 @@ import SwiftUI
 struct ProgressView: View {
     
     @EnvironmentObject var ingredientManager: IngredientManager
-    @State private var pointsGoal = 10
     @State private var newPointsGoal = 10
     @State private var showSummary = false
     let lastActionDateKey = "lastActionDate"
@@ -24,7 +23,7 @@ struct ProgressView: View {
                         lineWidth: 30
                     )
                 Circle() // 2
-                    .trim(from: 0, to: CGFloat(ingredientManager.totalPoints) / CGFloat(pointsGoal)) // 1
+                    .trim(from: 0, to: CGFloat(ingredientManager.totalPoints) / CGFloat(ingredientManager.pointsGoal)) // 1
                     .stroke(Color.blue,
                             style: StrokeStyle(
                                 lineWidth: 30,
@@ -32,7 +31,7 @@ struct ProgressView: View {
                             )
                     )
                     .rotationEffect(.degrees(-90))
-                    .animation(.easeOut, value: CGFloat(ingredientManager.totalPoints) / CGFloat(pointsGoal))
+                    .animation(.easeOut, value: CGFloat(ingredientManager.totalPoints) / CGFloat(ingredientManager.pointsGoal))
             }
                 .frame(width: 200, height: 200)
             HStack {
@@ -41,7 +40,7 @@ struct ProgressView: View {
                     .background(.blue)
                     .foregroundColor(.white)
                     .cornerRadius(30)
-                Stepper("\(pointsGoal)", value: $pointsGoal)
+                Stepper("\(ingredientManager.pointsGoal)", value: $ingredientManager.pointsGoal)
                     .padding(20)
                     .background(.blue)
                     .foregroundColor(.white)
@@ -53,10 +52,10 @@ struct ProgressView: View {
             performActionIfNeeded()
         }
         .sheet(isPresented: $showSummary, onDismiss: {
-            pointsGoal = newPointsGoal
+            ingredientManager.pointsGoal = newPointsGoal
         }) {
             Form {
-                Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(pointsGoal) * 100))% of your goal! Congratulations!")
+                Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
                 Button("inc") {
                     ingredientManager.totalPoints += 1
                 }
