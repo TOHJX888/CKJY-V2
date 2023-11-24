@@ -16,8 +16,18 @@ struct FoodListView: View {
     
     var body: some View {
         NavigationStack {
-            List(ingredientManager.selectedIngredientsFiltered, editActions: [.all]) { $ingredient in
-                IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+            VStack {
+                List(ingredientManager.selectedIngredientsFilteredHealthy, editActions: [.all]) { $ingredient in
+                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+                }
+                Spacer()
+                List(ingredientManager.selectedIngredientsFilteredNeutral, editActions: [.all]) { $ingredient in
+                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+                }
+                Spacer()
+                List(ingredientManager.selectedIngredientsFilteredUnhealthy, editActions: [.all]) { $ingredient in
+                    IngredientRowView(ingredient: Binding(get: { ingredient }, set: { ingredient = $0 }))
+                }
             }
             .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
             .navigationTitle("My Food List")
@@ -42,6 +52,7 @@ struct FoodListView: View {
             .sheet(isPresented: $showSheet) {
                 NewIngredientView()
             }
+            
         }
     }
 }

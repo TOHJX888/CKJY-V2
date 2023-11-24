@@ -19,12 +19,16 @@ class IngredientManager: ObservableObject {
     }
     @Published var selectedIngredientsSearchTerm = ""
 
-    var selectedIngredientsFiltered: Binding<[Ingredient]> {
+    var selectedIngredientsFilteredHealthy: Binding<[Ingredient]> {
         Binding (
             get: {
-                if self.selectedIngredientsSearchTerm == "" { return self.selectedIngredients }
+                if self.selectedIngredientsSearchTerm == "" {
+                    return self.selectedIngredients.filter {
+                        $0.points == 1
+                    }
+                }
                 return self.selectedIngredients.filter {
-                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased())
+                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased()) && $0.points == 1
                 }
             },
             set: {
@@ -32,7 +36,43 @@ class IngredientManager: ObservableObject {
             }
         )
     }
-
+    
+    var selectedIngredientsFilteredNeutral: Binding<[Ingredient]> {
+        Binding (
+            get: {
+                if self.selectedIngredientsSearchTerm == "" {
+                    return self.selectedIngredients.filter {
+                        $0.points == 0
+                    }
+                }
+                return self.selectedIngredients.filter {
+                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased()) && $0.points == 0
+                }
+            },
+            set: {
+                self.selectedIngredients = $0
+            }
+        )
+    }
+    
+    var selectedIngredientsFilteredUnhealthy: Binding<[Ingredient]> {
+        Binding (
+            get: {
+                if self.selectedIngredientsSearchTerm == "" {
+                    return self.selectedIngredients.filter {
+                        $0.points == -1
+                    }
+                }
+                return self.selectedIngredients.filter {
+                    $0.name.lowercased().contains(self.selectedIngredientsSearchTerm.lowercased()) && $0.points == -1
+                }
+            },
+            set: {
+                self.selectedIngredients = $0
+            }
+        )
+    }
+    
     // MARK: Total Points
     
     @Published var totalPoints = 0
@@ -123,7 +163,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Turkey bacon", points: 0, image: "https://tinyurl.com/bacon-world"),
         Ingredient(name: "Tuna", points: 1, image: "https://tinyurl.com/y8buyjd3"),
         Ingredient(name: "Truffle oil", points: 1, image: "https://tinyurl.com/yyy5rppj"),
-        Ingredient(name: " Triscuits", points: 0, image: "https://tinyurl.com/nxru85b5"),
+        Ingredient(name: "Triscuits", points: 0, image: "https://tinyurl.com/nxru85b5"),
         Ingredient(name: "Tortilla chips", points: -1, image: "https://tinyurl.com/rr6ha4px"),
         Ingredient(name: "Tomato sauce", points: 0, image: "https://tinyurl.com/tomatoe-sauce"),
         Ingredient(name: "Tomato paste", points: 0, image: "https://tinyurl.com/paste-tomatoe"),
