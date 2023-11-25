@@ -25,7 +25,7 @@ struct RecipeDetailView: View {
                 Stepper("Points: \(recipe.recipePoints)", value: $recipe.recipePoints, in: -5...5)
             }
             Section("Details") {
-                TextEditor(text: $recipe.recipeDetails)
+                TextEditor(text: $recipe.recipeInstructions)
             }
             Section("Actions") {
                 Button("Tap when eaten") {
@@ -52,7 +52,16 @@ struct RecipeDetailView: View {
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetailView(recipe: .constant(Recipe(recipeTitle: "Broccoli Soup", recipePoints: 4, recipeDetails: "make broccoli soup and eat it lol")))
-            .environmentObject(IngredientManager())
+        RecipeDetailView(
+            recipe: .constant(
+                Recipe(
+                    recipeTitle: "Broccoli Soup",
+                    recipePoints: 4,
+                    recipeIngredients: [],
+                    recipeInstructions: "make broccoli soup and eat it lol"
+                )
+            )
+        )
+        .environmentObject(IngredientManager())
     }
 }

@@ -11,10 +11,12 @@ struct NewRecipeView: View {
     
     @State private var recipeTitle = ""
     @State private var recipePoints = 0
-    @State private var recipeDetails = ""
+    @State private var recipeInstructions = ""
     @Binding var sourceArray: [Recipe]
     @State private var whitespaceChecker = ""
     @Environment(\.dismiss) var dismiss
+    @State private var searchTerm2 = ""
+    @EnvironmentObject var ingredientManager: IngredientManager
     
     var body: some View {
         Form {
@@ -24,20 +26,20 @@ struct NewRecipeView: View {
                 }
                 Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
             }
-            Section("Details") {
-                TextEditor(text: $recipeDetails)
+            Section("Ingredients") {
+                ForEach(ingredientManager.recipeIngredients) { ingredient in
+                    Text(ingredient.ingredient.name)
+                }
             }
+            .searchable(text: $searchTerm2)
+            
+            Section("Instructions") {
+                TextEditor(text: $recipeInstructions)
+            }
+            
             Section("Actions") {
                 Button("Save") {
-                    whitespaceChecker = recipeTitle.replacingOccurrences(of: " ", with: "")
-                    if !whitespaceChecker.isEmpty {
-                        let recipe = Recipe(recipeTitle: recipeTitle, recipePoints: recipePoints, recipeDetails: recipeDetails)
-                        sourceArray.append(recipe)
-                    } else {
-                        let recipe = Recipe(recipeTitle: "Untitled", recipePoints: recipePoints, recipeDetails: recipeDetails)
-                        sourceArray.append(recipe)
-                    }
-                    dismiss()
+                    save()
                 }
                 Button("Cancel", role: .destructive) {
                     dismiss()
@@ -45,10 +47,33 @@ struct NewRecipeView: View {
             }
         }
     }
+    
+    func save() {
+        whitespaceChecker = recipeTitle.replacingOccurrences(of: " ", with: "")
+        if !whitespaceChecker.isEmpty {
+            let recipe = Recipe(
+                recipeTitle: recipeTitle,
+                recipePoints: recipePoints,
+                recipeIngredients: [], // TODO
+                recipeInstructions: recipeInstructions
+            )
+            sourceArray.append(recipe)
+        } else {
+            let recipe = Recipe(
+                recipeTitle: "Untitled",
+                recipePoints: recipePoints,
+                recipeIngredients: [], // TODO
+                recipeInstructions: recipeInstructions
+            )
+            sourceArray.append(recipe)
+        }
+        dismiss()
+    }
 }
 
 struct NewRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         NewRecipeView(sourceArray: .constant([]))
+            .environmentObject(IngredientManager())
     }
 }

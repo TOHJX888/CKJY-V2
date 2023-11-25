@@ -31,6 +31,6 @@ struct RecipeRowView: View {
 
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeRowView(recipe: .constant(Recipe(recipeTitle: "Testing", recipePoints: 0, recipeDetails: "do whatever lol")))
+        RecipeRowView(recipe: .constant(Recipe(recipeTitle: "Testing", recipePoints: 0, recipeIngredients: [RecipeIngredient(ingredient: Ingredient(name: "Broccoli", points: 1))], recipeInstructions: "")))
     }
 }
