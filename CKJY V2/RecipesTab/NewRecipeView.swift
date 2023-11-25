@@ -17,6 +17,7 @@ struct NewRecipeView: View {
     @Environment(\.dismiss) var dismiss
     @State private var searchTerm2 = ""
     @EnvironmentObject var ingredientManager: IngredientManager
+    @State private var showSheet = false
     
     var body: some View {
         Form {
@@ -28,7 +29,10 @@ struct NewRecipeView: View {
             }
             Section("Ingredients") {
                 ForEach(ingredientManager.recipeIngredients) { ingredient in
-                    Text(ingredient.ingredient.name)
+                    RecipeIngredientRowView(ingredient: ingredient.ingredient)
+                }
+                Button("Add New Ingredient") {
+                    showSheet = true
                 }
             }
             .searchable(text: $searchTerm2)
@@ -44,6 +48,11 @@ struct NewRecipeView: View {
                 Button("Cancel", role: .destructive) {
                     dismiss()
                 }
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            ForEach($ingredientManager.presetIngredients) { ingredient in
+                NewRecipeIngredientRowView(ingredient: ingredient)
             }
         }
     }
@@ -75,5 +84,7 @@ struct NewRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         NewRecipeView(sourceArray: .constant([]))
             .environmentObject(IngredientManager())
+//        RecipeIngredientRowView(ingredient: .init(name: "broccoli", points: 1))
+//        NewRecipeIngredientRowView(ingredient: .init(name: "apple", points: 1))
     }
 }

@@ -19,6 +19,8 @@
 		9928846D2B0C91CD00618C2C /* NewIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846C2B0C91CD00618C2C /* NewIngredientView.swift */; };
 		9928846F2B0C984D00618C2C /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928846E2B0C984D00618C2C /* IngredientRowView.swift */; };
 		992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992884702B0C99AD00618C2C /* IngredientManager.swift */; };
+		9939A7602B1191D400B41199 /* RecipeIngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9939A75F2B1191D400B41199 /* RecipeIngredientRowView.swift */; };
+		9939A7622B11975100B41199 /* NewRecipeIngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9939A7612B11975100B41199 /* NewRecipeIngredientRowView.swift */; };
 		99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */; };
 		99775F272B0DCE64000BBD76 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F262B0DCE64000BBD76 /* RecipesView.swift */; };
 		99775F2C2B0DCEEF000BBD76 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99775F2B2B0DCEEF000BBD76 /* ProgressView.swift */; };
@@ -61,6 +63,8 @@
 		9928846C2B0C91CD00618C2C /* NewIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIngredientView.swift; sourceTree = "<group>"; };
 		9928846E2B0C984D00618C2C /* IngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRowView.swift; sourceTree = "<group>"; };
 		992884702B0C99AD00618C2C /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
+		9939A75F2B1191D400B41199 /* RecipeIngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientRowView.swift; sourceTree = "<group>"; };
+		9939A7612B11975100B41199 /* NewRecipeIngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeIngredientRowView.swift; sourceTree = "<group>"; };
 		99775F242B0D9B9A000BBD76 /* IngredientNewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientNewRowView.swift; sourceTree = "<group>"; };
 		99775F262B0DCE64000BBD76 /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		99775F2B2B0DCEEF000BBD76 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				99775F262B0DCE64000BBD76 /* RecipesView.swift */,
 				99775F332B1030C2000BBD76 /* RecipeDetailView.swift */,
 				99775F2D2B0DD71B000BBD76 /* NewRecipeView.swift */,
+				9939A75F2B1191D400B41199 /* RecipeIngredientRowView.swift */,
+				9939A7612B11975100B41199 /* NewRecipeIngredientRowView.swift */,
 				99775F312B0DE343000BBD76 /* RecipeRowView.swift */,
 				99775F2F2B0DE0ED000BBD76 /* Recipe.swift */,
 			);
@@ -318,6 +324,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				99775F322B0DE343000BBD76 /* RecipeRowView.swift in Sources */,
+				9939A7602B1191D400B41199 /* RecipeIngredientRowView.swift in Sources */,
+				9939A7622B11975100B41199 /* NewRecipeIngredientRowView.swift in Sources */,
 				992884692B0C895000618C2C /* Ingredient.swift in Sources */,
 				99775F252B0D9B9A000BBD76 /* IngredientNewRowView.swift in Sources */,
 				992884672B0C88D900618C2C /* FoodListView.swift in Sources */,
