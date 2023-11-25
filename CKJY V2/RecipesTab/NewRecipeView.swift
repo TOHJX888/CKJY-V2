@@ -21,54 +21,52 @@ struct NewRecipeView: View {
     @State private var selectedIngredient: Ingredient?
     
     var body: some View {
-        Form {
-            Section("General") {
-                HStack {
-                    TextField("Title", text: $recipeTitle)
+        NavigationStack {
+            Form {
+                Section("General") {
+                    HStack {
+                        TextField("Title", text: $recipeTitle)
+                    }
+                    Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
                 }
-                Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
-            }
-            Section("Ingredients") {
-                ForEach(ingredientManager.recipeIngredients) { ingredient in
-                    RecipeIngredientRowView(ingredient: ingredient.ingredient)
-                }
-            }
-            
-            Button("Add New Ingredient") {
-                showSheet = true
-            }
-            
-            Section("Instructions") {
-                TextEditor(text: $recipeInstructions)
-            }
-            
-            Section("Actions") {
-                Button("Save") {
-                    save()
-                }
-                Button("Cancel", role: .destructive) {
-                    dismiss()
-                }
-            }
-        }
-        .sheet(isPresented: $showSheet) {
-            NavigationStack {
-                List {
-                    ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
-                        NewRecipeIngredientRowView(ingredient: $presetIngredient)
-                            .onTapGesture {
-                                selectedIngredient = presetIngredient
-                            }
+                Section("Ingredients") {
+                    ForEach($ingredientManager.recipeIngredients) { $ingredient in
+
+                        RecipeIngredientRowView(recipeIngredient: $ingredient)
                     }
                 }
-                .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
-                .alert(item: $selectedIngredient) { ing in
-                    Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
-                          primaryButton: .default(Text("Yes"), action: {
-                        var newRecipeIngredient = RecipeIngredient(ingredient: ing)
-                        ingredientManager.recipeIngredients.append(newRecipeIngredient)
-                    }),
-                          secondaryButton: .cancel())
+                NavigationLink {
+                    List {
+                        ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
+                            NewRecipeIngredientRowView(ingredient: $presetIngredient)
+                                .onTapGesture {
+                                    selectedIngredient = presetIngredient
+                                }
+                        }
+                    }
+                    .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
+                    .alert(item: $selectedIngredient) { ing in
+                        Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
+                              primaryButton: .default(Text("Yes"), action: {
+                            var newRecipeIngredient = RecipeIngredient(ingredient: ing)
+                            ingredientManager.recipeIngredients.append(newRecipeIngredient)
+                        }),
+                              secondaryButton: .cancel())
+                    }
+                } label: {
+                    Text("Add New Ingredient")
+                }
+                Section("Instructions") {
+                    TextEditor(text: $recipeInstructions)
+                }
+
+                Section("Actions") {
+                    Button("Save") {
+                        save()
+                    }
+                    Button("Cancel", role: .destructive) {
+                        dismiss()
+                    }
                 }
             }
         }

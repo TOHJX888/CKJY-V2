@@ -67,7 +67,7 @@ struct RecipesView: View {
                 NewRecipeView(sourceArray: $ingredientManager.recipes)
             }
         }
-        }
+    }
 }
 
 

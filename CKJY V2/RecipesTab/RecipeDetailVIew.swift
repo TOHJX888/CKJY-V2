@@ -24,7 +24,12 @@ struct RecipeDetailView: View {
                 }
                 Stepper("Points: \(recipe.recipePoints)", value: $recipe.recipePoints, in: -5...5)
             }
-            Section("Details") {
+            Section("Ingredients") {
+                ForEach($ingredientManager.recipeIngredients) { $ingredient in
+                    RecipeIngredientRowView(recipeIngredient: $ingredient)
+                }
+            }
+            Section("Instructions") {
                 TextEditor(text: $recipe.recipeInstructions)
             }
             Section("Actions") {
