@@ -26,7 +26,8 @@ struct RecipeDetailView: View {
             }
             Section("Ingredients") {
                 ForEach($ingredientManager.recipeIngredients) { $ingredient in
-                    RecipeIngredientRowView(recipeIngredient: $ingredient)
+           
+                RecipeIngredientRowView(recipeIngredient: $ingredient)
                 }
             }
             Section("Instructions") {
