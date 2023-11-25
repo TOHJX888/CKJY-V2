@@ -18,6 +18,7 @@ struct NewRecipeView: View {
     @State private var searchTerm2 = ""
     @EnvironmentObject var ingredientManager: IngredientManager
     @State private var showSheet = false
+    @State private var selectedIngredient: Ingredient?
     
     var body: some View {
         Form {
@@ -53,11 +54,23 @@ struct NewRecipeView: View {
         .sheet(isPresented: $showSheet) {
             NavigationStack {
                 List {
-                    ForEach(ingredientManager.presetIngredientsFiltered) { $ingredient in
-                        NewRecipeIngredientRowView(ingredient: $ingredient)
+                    ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
+                        NewRecipeIngredientRowView(ingredient: $presetIngredient)
+                            .onTapGesture {
+                                selectedIngredient = presetIngredient
+                            }
                     }
                 }
                 .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
+                .alert(item: $selectedIngredient) { ing in
+                    Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
+                          primaryButton: .default(Text("Yes"), action: {
+                        var newRecipeIngredient = RecipeIngredient(ingredient: ing)
+                        ingredientManager.recipeIngredients.append(newRecipeIngredient)
+                        dismiss()
+                    }),
+                          secondaryButton: .cancel())
+                }
             }
         }
     }
