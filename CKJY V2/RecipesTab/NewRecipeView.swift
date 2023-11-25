@@ -67,7 +67,6 @@ struct NewRecipeView: View {
                           primaryButton: .default(Text("Yes"), action: {
                         var newRecipeIngredient = RecipeIngredient(ingredient: ing)
                         ingredientManager.recipeIngredients.append(newRecipeIngredient)
-                        dismiss()
                     }),
                           secondaryButton: .cancel())
                 }
