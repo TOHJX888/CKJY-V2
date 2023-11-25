@@ -46,7 +46,7 @@ struct NewRecipeView: View {
                     }
                     .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
                     .alert(item: $selectedIngredient) { ing in
-                        Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
+                        Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
                               primaryButton: .default(Text("Yes"), action: {
                             var newRecipeIngredient = RecipeIngredient(ingredient: ing)
                             ingredientManager.recipeIngredients.append(newRecipeIngredient)
@@ -63,6 +63,7 @@ struct NewRecipeView: View {
                 Section("Actions") {
                     Button("Save") {
                         save()
+                        dismiss()
                     }
                     Button("Cancel", role: .destructive) {
                         dismiss()

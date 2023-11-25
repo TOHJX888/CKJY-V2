@@ -14,7 +14,7 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            List() {
+            List($ingredientManager.recipeIngredients, editActions: [.all]) {_ in
                 Section("Healthy") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
                         NavigationLink {
