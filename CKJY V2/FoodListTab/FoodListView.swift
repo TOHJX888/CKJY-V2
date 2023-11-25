@@ -15,7 +15,7 @@ struct FoodListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List() {
+                List($ingredientManager.selectedIngredients, editActions: [.all]) {_ in 
                     Section("Healthy") {
                         ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 1 })) { $ingredient in
                             IngredientRowView(ingredient: $ingredient)
