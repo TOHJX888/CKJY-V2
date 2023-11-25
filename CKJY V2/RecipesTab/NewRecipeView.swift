@@ -31,11 +31,11 @@ struct NewRecipeView: View {
                 ForEach(ingredientManager.recipeIngredients) { ingredient in
                     RecipeIngredientRowView(ingredient: ingredient.ingredient)
                 }
-                Button("Add New Ingredient") {
-                    showSheet = true
-                }
             }
-            .searchable(text: $searchTerm2)
+            
+            Button("Add New Ingredient") {
+                showSheet = true
+            }
             
             Section("Instructions") {
                 TextEditor(text: $recipeInstructions)
@@ -51,8 +51,13 @@ struct NewRecipeView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            ForEach($ingredientManager.presetIngredients) { ingredient in
-                NewRecipeIngredientRowView(ingredient: ingredient)
+            NavigationStack {
+                List {
+                    ForEach(ingredientManager.presetIngredientsFiltered) { $ingredient in
+                        NewRecipeIngredientRowView(ingredient: $ingredient)
+                    }
+                }
+                .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             }
         }
     }

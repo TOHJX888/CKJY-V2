@@ -10,7 +10,6 @@ import SwiftUI
 struct FoodListView: View {
     
     @State private var showSheet = false
-    @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
     
     var body: some View {
