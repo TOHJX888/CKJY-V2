@@ -14,7 +14,7 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            List($ingredientManager.recipeIngredients, editActions: [.all]) {_ in
+            List() {
                 Section("Healthy") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
                         NavigationLink {
@@ -22,6 +22,13 @@ struct RecipesView: View {
                         } label: {
                             RecipeRowView(recipe: $recipe)
                         }
+                    }
+                    .onDelete { indexSet in
+                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                    }
+                    .onMove { originalOffsets, newOffset in
+                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                    toOffset: newOffset)
                     }
                 }
                 Section("Neutral") {
@@ -32,6 +39,13 @@ struct RecipesView: View {
                             RecipeRowView(recipe: $recipe)
                         }
                     }
+                    .onDelete { indexSet in
+                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                    }
+                    .onMove { originalOffsets, newOffset in
+                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                    toOffset: newOffset)
+                    }
                 }
                 Section("Unhealthy") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
@@ -40,6 +54,13 @@ struct RecipesView: View {
                         } label: {
                             RecipeRowView(recipe: $recipe)
                         }
+                    }
+                    .onDelete { indexSet in
+                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                    }
+                    .onMove { originalOffsets, newOffset in
+                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                    toOffset: newOffset)
                     }
                 }
             }

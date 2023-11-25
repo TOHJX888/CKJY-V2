@@ -15,20 +15,41 @@ struct FoodListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List($ingredientManager.selectedIngredients, editActions: [.all]) {_ in 
+                List() {
                     Section("Healthy") {
                         ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 1 })) { $ingredient in
                             IngredientRowView(ingredient: $ingredient)
+                        }
+                        .onDelete { indexSet in
+                            ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                        }
+                        .onMove { originalOffsets, newOffset in
+                            ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                        toOffset: newOffset)
                         }
                     }
                     Section("Neutral") {
                         ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 0 })) { $ingredient in
                             IngredientRowView(ingredient: $ingredient)
                         }
+                        .onDelete { indexSet in
+                            ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                        }
+                        .onMove { originalOffsets, newOffset in
+                            ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                        toOffset: newOffset)
+                        }
                     }
                     Section("Unhealthy") {
                         ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == -1 })) { $ingredient in
                             IngredientRowView(ingredient: $ingredient)
+                        }
+                        .onDelete { indexSet in
+                            ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                        }
+                        .onMove { originalOffsets, newOffset in
+                            ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                        toOffset: newOffset)
                         }
                     }
                 }
