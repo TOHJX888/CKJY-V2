@@ -19,7 +19,7 @@ struct ContentView: View {
                 }
             FoodListView()
                 .tabItem {
-                    Label("Food List", systemImage: "list.bullet.clipboard")
+                    Label("Food List", systemImage: "list.clipboard")
                 }
             ProgressView()
                 .tabItem {
