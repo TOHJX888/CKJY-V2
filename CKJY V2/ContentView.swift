@@ -12,7 +12,7 @@ struct ContentView: View {
     @EnvironmentObject var ingredientManager: IngredientManager
     let lastActionDateKey = "lastActionDate"
     @State private var showSummary = false
-    @State private var isMonday = false
+    @State private var isSummaryDay = false
     @State private var newPointsGoalString = ""
     @Environment(\.dismiss) var dismiss
     @State private var pressedSaveButton = false
@@ -40,6 +40,7 @@ struct ContentView: View {
         .onAppear {
             if !hasLaunchedBefore {
                 showOnboardingSheet = true
+                isSummaryDay = true
             }
             performActionIfNeeded()
         }
@@ -52,9 +53,35 @@ struct ContentView: View {
         }) {
             NavigationStack {
                 Form {
-                    Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
-                    TextField("New Goal", text: $newPointsGoalString)
-                        .keyboardType(.numberPad)
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            Circle()
+                                .stroke( // 1
+                                    Color.blue.opacity(0.5),
+                                    lineWidth: 30
+                                )
+                            Circle() // 2
+                                .trim(from: 0, to: CGFloat(ingredientManager.totalPoints) / CGFloat(ingredientManager.pointsGoal)) // 1
+                                .stroke(Color.blue,
+                                        style: StrokeStyle(
+                                            lineWidth: 30,
+                                            lineCap: .round
+                                        )
+                                )
+                                .rotationEffect(.degrees(-90))
+                                .animation(.easeOut, value: CGFloat(ingredientManager.totalPoints) / CGFloat(ingredientManager.pointsGoal))
+                            
+                        }
+                        .frame(width: 200, height: 200)
+                        .padding()
+                        Spacer()
+                    }
+                    Section("") {
+                        Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
+                        TextField("New Goal", text: $newPointsGoalString)
+                            .keyboardType(.numberPad)
+                    }
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -90,7 +117,26 @@ struct ContentView: View {
                 Button("Save") {
                     ingredientManager.pointsGoal = Int(newPointsGoalString) ?? 0
                     newPointsGoalString = ""
-                    dismiss()
+                    switch selectedDay {
+                    case "Monday":
+                        summaryDayInt = 2
+                    case "Tuesday":
+                        summaryDayInt = 3
+                    case "Wednesday":
+                        summaryDayInt = 4
+                    case "Thursday":
+                        summaryDayInt = 5
+                    case "Friday":
+                        summaryDayInt = 6
+                    case "Saturday":
+                        summaryDayInt = 7
+                    case "Sunday":
+                        summaryDayInt = 1
+                    default:
+                        summaryDayInt = 2
+                    }
+                    showOnboardingSheet = false
+                    hasLaunchedBefore = true
                 }
             }
         }
@@ -100,16 +146,16 @@ struct ContentView: View {
         let now = Date()
 
         // Check if today is Monday
-        if calendar.component(.weekday, from: now) == 2 && !isMonday && hasLaunchedBefore {
-            isMonday = true
+        if calendar.component(.weekday, from: now) == summaryDayInt && !isSummaryDay && hasLaunchedBefore {
+            isSummaryDay = true
             showSummary = true
             print("Action performed on Monday!")
 
             // Update UserDefaults with the current date
             UserDefaults.standard.set(now, forKey: lastActionDateKey)
         }
-        if calendar.component(.weekday, from: now) != 2 {
-            isMonday = false
+        if calendar.component(.weekday, from: now) != summaryDayInt {
+            isSummaryDay = false
             print("can show sheet again")
         }
     }
