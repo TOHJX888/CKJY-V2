@@ -24,10 +24,10 @@ struct RecipesView: View {
                         }
                     }
                     .onDelete { indexSet in
-                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                        ingredientManager.recipes.remove(atOffsets: indexSet)
                     }
                     .onMove { originalOffsets, newOffset in
-                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                        ingredientManager.recipes.move(fromOffsets: originalOffsets,
                     toOffset: newOffset)
                     }
                 }
@@ -40,10 +40,10 @@ struct RecipesView: View {
                         }
                     }
                     .onDelete { indexSet in
-                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                        ingredientManager.recipes.remove(atOffsets: indexSet)
                     }
                     .onMove { originalOffsets, newOffset in
-                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                        ingredientManager.recipes.move(fromOffsets: originalOffsets,
                     toOffset: newOffset)
                     }
                 }
@@ -56,10 +56,10 @@ struct RecipesView: View {
                         }
                     }
                     .onDelete { indexSet in
-                        ingredientManager.recipeIngredients.remove(atOffsets: indexSet)
+                        ingredientManager.recipes.remove(atOffsets: indexSet)
                     }
                     .onMove { originalOffsets, newOffset in
-                        ingredientManager.recipeIngredients.move(fromOffsets: originalOffsets,
+                        ingredientManager.recipes.move(fromOffsets: originalOffsets,
                     toOffset: newOffset)
                     }
                 }
