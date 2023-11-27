@@ -60,6 +60,7 @@ struct FoodListView: View {
                                 }
                             }
                     }
+                    .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
                 } else {
                     Text("You currently do not have any ingredients in your Food List. Try pressing the '+' button to add a new ingredient")
                         .padding()
@@ -68,7 +69,6 @@ struct FoodListView: View {
                         .foregroundColor(.gray)
                 }
             }
-            .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
             .navigationTitle("My Food List")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
