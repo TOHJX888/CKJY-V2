@@ -10,10 +10,6 @@ import SwiftUI
 struct ProgressView: View {
     
     @EnvironmentObject var ingredientManager: IngredientManager
-    @State private var newPointsGoal = 10
-    @State private var showSummary = false
-    let lastActionDateKey = "lastActionDate"
-    @State private var isMonday = false
     
     var body: some View {
         NavigationStack {
@@ -44,17 +40,6 @@ struct ProgressView: View {
                     
                 }
                 .frame(width: 200, height: 200)
-                //            HStack {
-                //                Stepper("\(ingredientManager.totalPoints)", value: $ingredientManager.totalPoints)
-                //                    .padding(20)
-                //                    .background(.blue)
-                //                    .foregroundColor(.white)
-                //                    .cornerRadius(30)
-                //            Stepper("\(ingredientManager.pointsGoal)", value: $ingredientManager.pointsGoal)
-                //                    .padding(20)
-                //                    .background(.blue)
-                //                    .foregroundColor(.white)
-                //                    .cornerRadius(30)
                 Spacer()
                 HStack {
                     Text("Goal: \(ingredientManager.pointsGoal)")
@@ -67,43 +52,6 @@ struct ProgressView: View {
                 Spacer()
             }
             .navigationTitle("My Progress View")
-            .onAppear {
-                performActionIfNeeded()
-            }
-            .sheet(isPresented: $showSummary, onDismiss: {
-                ingredientManager.pointsGoal = newPointsGoal
-            }) {
-                Form {
-                    Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations! Set your goal for the new week!")
-                    //                Button("inc") {
-                    //                    ingredientManager.totalPoints += 1
-                    //                }
-                    //                Button("dec") {
-                    //                    ingredientManager.totalPoints -= 1
-                    //                }
-                    Stepper("New Goal: \(newPointsGoal)", value: $newPointsGoal, step: 5)
-                }
-            }
-        }
-    }
-        
-    
-    func performActionIfNeeded() {
-        let calendar = Calendar.current
-        let now = Date()
-
-        // Check if today is Monday
-        if calendar.component(.weekday, from: now) == 2 && !isMonday {
-            isMonday = true
-            showSummary = true
-            print("Action performed on Monday!")
-
-            // Update UserDefaults with the current date
-            UserDefaults.standard.set(now, forKey: lastActionDateKey)
-        }
-        if calendar.component(.weekday, from: now) != 2 {
-            isMonday = false
-            print("can show sheet again")
         }
     }
     
