@@ -31,8 +31,14 @@ struct NewRecipeView: View {
                     Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
                 }
                 Section("Ingredients") {
-                    ForEach($tempRecipeIngredients, editActions: [.all]) { $ingredient in
-                        RecipeIngredientRowView(recipeIngredient: $ingredient)
+                    if !tempRecipeIngredients.isEmpty {
+                        ForEach($tempRecipeIngredients, editActions: [.all]) { $ingredient in
+                            RecipeIngredientRowView(recipeIngredient: $ingredient)
+                        }
+                    } else {
+                        Text("Try clicking 'Add New Ingredient'")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
                     }
                 }
                 NavigationLink {
