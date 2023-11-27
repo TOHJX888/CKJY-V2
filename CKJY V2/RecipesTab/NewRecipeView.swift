@@ -19,6 +19,7 @@ struct NewRecipeView: View {
     @EnvironmentObject var ingredientManager: IngredientManager
     @State private var showSheet = false
     @State private var selectedIngredient: Ingredient?
+    @State private var tempRecipeIngredients: [RecipeIngredient] = []
     
     var body: some View {
         NavigationStack {
@@ -30,7 +31,7 @@ struct NewRecipeView: View {
                     Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
                 }
                 Section("Ingredients") {
-                    ForEach($ingredientManager.recipeIngredients) { $ingredient in
+                    ForEach($tempRecipeIngredients) { $ingredient in
 
                         RecipeIngredientRowView(recipeIngredient: $ingredient)
                     }
@@ -48,8 +49,8 @@ struct NewRecipeView: View {
                     .alert(item: $selectedIngredient) { ing in
                         Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
                               primaryButton: .default(Text("Yes"), action: {
-                            var newRecipeIngredient = RecipeIngredient(ingredient: ing)
-                            ingredientManager.recipeIngredients.append(newRecipeIngredient)
+                            let newRecipeIngredient = RecipeIngredient(ingredient: ing)
+                            tempRecipeIngredients.append(newRecipeIngredient)
                         }),
                               secondaryButton: .cancel())
                     }
@@ -79,7 +80,7 @@ struct NewRecipeView: View {
             let recipe = Recipe(
                 recipeTitle: recipeTitle,
                 recipePoints: recipePoints,
-                recipeIngredients: [], // TODO
+                recipeIngredients: tempRecipeIngredients, // TODO
                 recipeInstructions: recipeInstructions
             )
             sourceArray.append(recipe)
@@ -87,7 +88,7 @@ struct NewRecipeView: View {
             let recipe = Recipe(
                 recipeTitle: "Untitled",
                 recipePoints: recipePoints,
-                recipeIngredients: [], // TODO
+                recipeIngredients: tempRecipeIngredients, // TODO
                 recipeInstructions: recipeInstructions
             )
             sourceArray.append(recipe)
