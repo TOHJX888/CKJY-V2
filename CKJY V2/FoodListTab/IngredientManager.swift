@@ -708,13 +708,12 @@ class IngredientManager: ObservableObject {
                     $0.name.lowercased().contains(self.presetIngredientsSearchTerm.lowercased())
                 }
             },
-            set: {
-                self.presetIngredients = $0
+            set: { _ in
+                print("no dont u dare")
+//                self.presetIngredients = $0
             }
         )
     }
-
-    
         
     init() {
         presetIngredients.sort(by: { $0.name < $1.name })

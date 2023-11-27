@@ -11,7 +11,6 @@ struct IngredientNewRowView: View {
     
     @Binding var ingredientNew: Ingredient
     @EnvironmentObject var ingredientManager: IngredientManager
-    @State var isSelected = false
     
     
     var body: some View {
@@ -30,9 +29,10 @@ struct IngredientNewRowView: View {
             Image(systemName: ingredientNew.points == -1 ? "hand.thumbsdown.circle.fill" : ingredientNew.points == 0 ? "minus.circle.fill" : "hand.thumbsup.circle.fill")
         }
         .onAppear {
+            ingredientNew.isSelected = false
             for item in ingredientManager.selectedIngredients {
                 if item == ingredientNew {
-                    isSelected = true
+                    ingredientNew.isSelected = true
                 }
             }
         }

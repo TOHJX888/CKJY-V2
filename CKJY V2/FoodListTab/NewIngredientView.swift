@@ -16,11 +16,13 @@ struct NewIngredientView: View {
     var body: some View {
         NavigationStack {
             List(ingredientManager.presetIngredientsFiltered, editActions: [.all]) { $presetIngredient in
-                IngredientNewRowView(ingredientNew: $presetIngredient)
-                    .foregroundColor(presetIngredient.points == -1 ? .red : presetIngredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
-                    .onTapGesture {
-                        selectedIngredient = presetIngredient
-                    }
+                if !presetIngredient.isSelected {
+                    IngredientNewRowView(ingredientNew: $presetIngredient)
+                        .foregroundColor(presetIngredient.points == -1 ? .red : presetIngredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
+                        .onTapGesture {
+                            selectedIngredient = presetIngredient
+                        }
+                }
             }
             .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
             .navigationTitle("New Ingredient")
@@ -28,6 +30,7 @@ struct NewIngredientView: View {
                 Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
                       primaryButton: .default(Text("Yes"), action: {
                     ingredientManager.selectedIngredients.append(ing)
+                    dismiss()
                 }),
                       secondaryButton: .cancel())
             }
