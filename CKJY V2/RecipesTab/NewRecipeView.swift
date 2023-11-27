@@ -31,8 +31,7 @@ struct NewRecipeView: View {
                     Stepper("Points: \(recipePoints)", value: $recipePoints, in: -5...5)
                 }
                 Section("Ingredients") {
-                    ForEach($tempRecipeIngredients) { $ingredient in
-
+                    ForEach($tempRecipeIngredients, editActions: [.all]) { $ingredient in
                         RecipeIngredientRowView(recipeIngredient: $ingredient)
                     }
                 }

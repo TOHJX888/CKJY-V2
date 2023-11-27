@@ -13,6 +13,7 @@ struct ProgressView: View {
     @State private var newPointsGoal = 10
     @State private var showSummary = false
     let lastActionDateKey = "lastActionDate"
+    @State private var isMonday = false
     
     var body: some View {
         NavigationStack {
@@ -73,7 +74,7 @@ struct ProgressView: View {
                 ingredientManager.pointsGoal = newPointsGoal
             }) {
                 Form {
-                    Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!Set your goal for the new week!")
+                    Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations! Set your goal for the new week!")
                     //                Button("inc") {
                     //                    ingredientManager.totalPoints += 1
                     //                }
@@ -92,12 +93,17 @@ struct ProgressView: View {
         let now = Date()
 
         // Check if today is Monday
-        if calendar.component(.weekday, from: now) == 6 {
+        if calendar.component(.weekday, from: now) == 2 && !isMonday {
+            isMonday = true
             showSummary = true
             print("Action performed on Monday!")
 
             // Update UserDefaults with the current date
             UserDefaults.standard.set(now, forKey: lastActionDateKey)
+        }
+        if calendar.component(.weekday, from: now) != 2 {
+            isMonday = false
+            print("can show sheet again")
         }
     }
     
