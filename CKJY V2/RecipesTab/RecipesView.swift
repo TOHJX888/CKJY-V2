@@ -75,7 +75,7 @@ struct RecipesView: View {
                     }
                     .searchable(text: $ingredientManager.recipesSearchTerm)
                 } else {
-                    Text("You currently do not have any ingredients in your Recipe List. Try pressing the '+' button to add a new ingredient")
+                    Text("You currently do not have any ingredients in your Recipe List. Try pressing the '+' button to add a new recipe")
                         .padding()
                         .multilineTextAlignment(.center)
                         .font(.title2)
