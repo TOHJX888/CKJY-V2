@@ -16,6 +16,11 @@ struct ContentView: View {
     @State private var newPointsGoalString = ""
     @Environment(\.dismiss) var dismiss
     @State private var pressedSaveButton = false
+    @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    @State private var showOnboardingSheet = false
+    @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    @State private var selectedDay = ""
+    @State private var summaryDayInt = 2
     
     var body: some View {
         TabView {
@@ -33,6 +38,9 @@ struct ContentView: View {
                 }
         }
         .onAppear {
+            if !hasLaunchedBefore {
+                showOnboardingSheet = true
+            }
             performActionIfNeeded()
         }
         .sheet(isPresented: $showSummary, onDismiss: {
@@ -65,13 +73,34 @@ struct ContentView: View {
                 }
             }
         }
+        .sheet(isPresented: $showOnboardingSheet, onDismiss: {
+            hasLaunchedBefore = true
+        }) {
+            Form {
+                Text("Hello User!")
+                    .font(.title)
+                Text("This app uses a self-set goal method to help you on your healthy-eating journey. Before you start, please choose your preferences:")
+                TextField("Starting Goal", text: $newPointsGoalString)
+                    .keyboardType(.numberPad)
+                Picker("Summary Day", selection: $selectedDay) {
+                    ForEach(days, id:\.self) {
+                        Text($0)
+                    }
+                }
+                Button("Save") {
+                    ingredientManager.pointsGoal = Int(newPointsGoalString) ?? 0
+                    newPointsGoalString = ""
+                    dismiss()
+                }
+            }
+        }
     }
     func performActionIfNeeded() {
         let calendar = Calendar.current
         let now = Date()
 
         // Check if today is Monday
-        if calendar.component(.weekday, from: now) == 2 && !isMonday {
+        if calendar.component(.weekday, from: now) == 2 && !isMonday && hasLaunchedBefore {
             isMonday = true
             showSummary = true
             print("Action performed on Monday!")
