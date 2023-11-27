@@ -17,10 +17,13 @@ struct RecipesView: View {
             List() {
                 Section("Healthy") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
+                        if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            
+                            NavigationLink {
+                                RecipeDetailView(recipe: $recipe)
+                            } label: {
+                                RecipeRowView(recipe: $recipe)
+                            }
                         }
                     }
                     .onDelete { indexSet in
@@ -33,10 +36,12 @@ struct RecipesView: View {
                 }
                 Section("Neutral") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
+                        if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            NavigationLink {
+                                RecipeDetailView(recipe: $recipe)
+                            } label: {
+                                RecipeRowView(recipe: $recipe)
+                            }
                         }
                     }
                     .onDelete { indexSet in
@@ -49,10 +54,12 @@ struct RecipesView: View {
                 }
                 Section("Unhealthy") {
                     ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
+                        if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            NavigationLink {
+                                RecipeDetailView(recipe: $recipe)
+                            } label: {
+                                RecipeRowView(recipe: $recipe)
+                            }
                         }
                     }
                     .onDelete { indexSet in
