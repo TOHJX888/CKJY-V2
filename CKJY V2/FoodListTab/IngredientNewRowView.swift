@@ -16,7 +16,7 @@ struct IngredientNewRowView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "circle")
+         //   Image(systemName: "circle")
             VStack(alignment: .leading) {
                 Text(ingredientNew.name)
                 HStack {
@@ -26,6 +26,8 @@ struct IngredientNewRowView: View {
                 .font(.footnote)
                 .foregroundColor(.gray)
             }
+            Spacer()
+            Image(systemName: ingredientNew.points == -1 ? "hand.thumbsdown.circle.fill" : ingredientNew.points == 0 ? "minus.circle.fill" : "hand.thumbsup.circle.fill")
         }
         .onAppear {
             for item in ingredientManager.selectedIngredients {
