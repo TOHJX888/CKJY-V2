@@ -10,31 +10,65 @@ import SwiftUI
 struct FoodListView: View {
     
     @State private var showSheet = false
-    @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
     
     var body: some View {
         NavigationStack {
             VStack {
-                List() {
-                    Section("Healthy") {
-                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 1 })) { $ingredient in
-                            IngredientRowView(ingredient: $ingredient)
-                        }
+                if !ingredientManager.selectedIngredients.isEmpty {
+                    List() {
+                            Section("Healthy") {
+                                ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 1 }), id: \.id) { $ingredient in
+                                    if ingredientManager.selectedIngredientsSearchTerm == "" || ingredient.name.lowercased().contains( ingredientManager.selectedIngredientsSearchTerm.lowercased()) {
+                                        IngredientRowView(ingredient: $ingredient)
+                                    }
+                                }
+                                .onDelete { indexSet in
+                                    ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                                }
+                                .onMove { originalOffsets, newOffset in
+                                    ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                                toOffset: newOffset)
+                                }
+                            }
+                            Section("Neutral") {
+                                ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 0 }), id: \.id) { $ingredient in
+                                    if ingredientManager.selectedIngredientsSearchTerm == "" || ingredient.name.lowercased().contains( ingredientManager.selectedIngredientsSearchTerm.lowercased()) {
+                                        IngredientRowView(ingredient: $ingredient)
+                                    }
+                                }
+                                .onDelete { indexSet in
+                                    ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                                }
+                                .onMove { originalOffsets, newOffset in
+                                    ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                                toOffset: newOffset)
+                                }
+                            }
+                            Section("Unhealthy") {
+                                ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == -1 }), id: \.id) { $ingredient in
+                                    if ingredientManager.selectedIngredientsSearchTerm == "" || ingredient.name.lowercased().contains( ingredientManager.selectedIngredientsSearchTerm.lowercased()) {
+                                        IngredientRowView(ingredient: $ingredient)
+                                    }
+                                }
+                                .onDelete { indexSet in
+                                    ingredientManager.selectedIngredients.remove(atOffsets: indexSet)
+                                }
+                                .onMove { originalOffsets, newOffset in
+                                    ingredientManager.selectedIngredients.move(fromOffsets: originalOffsets,
+                                toOffset: newOffset)
+                                }
+                            }
                     }
-                    Section("Neutral") {
-                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == 0 })) { $ingredient in
-                            IngredientRowView(ingredient: $ingredient)
-                        }
-                    }
-                    Section("Unhealthy") {
-                        ForEach($ingredientManager.selectedIngredients.filter({ $0.wrappedValue.points == -1 })) { $ingredient in
-                            IngredientRowView(ingredient: $ingredient)
-                        }
-                    }
+                    .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
+                } else {
+                    Text("You currently do not have any ingredients in your Food List. Try pressing the '+' button to add a new ingredient")
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .foregroundColor(.gray)
                 }
             }
-            .searchable(text: $ingredientManager.selectedIngredientsSearchTerm)
             .navigationTitle("My Food List")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

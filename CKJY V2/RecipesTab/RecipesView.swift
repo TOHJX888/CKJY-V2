@@ -14,36 +14,74 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            List() {
-                Section("Healthy") {
-                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
+            VStack {
+                if !ingredientManager.recipes.isEmpty {
+                    List() {
+                        Section("Healthy") {
+                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
+                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                                    
+                                    NavigationLink {
+                                        RecipeDetailView(recipe: $recipe)
+                                    } label: {
+                                        RecipeRowView(recipe: $recipe)
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                            }
+                            .onMove { originalOffsets, newOffset in
+                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                            toOffset: newOffset)
+                            }
+                        }
+                        Section("Neutral") {
+                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
+                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                                    NavigationLink {
+                                        RecipeDetailView(recipe: $recipe)
+                                    } label: {
+                                        RecipeRowView(recipe: $recipe)
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                            }
+                            .onMove { originalOffsets, newOffset in
+                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                            toOffset: newOffset)
+                            }
+                        }
+                        Section("Unhealthy") {
+                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
+                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                                    NavigationLink {
+                                        RecipeDetailView(recipe: $recipe)
+                                    } label: {
+                                        RecipeRowView(recipe: $recipe)
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                            }
+                            .onMove { originalOffsets, newOffset in
+                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                            toOffset: newOffset)
+                            }
                         }
                     }
-                }
-                Section("Neutral") {
-                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
-                        }
-                    }
-                }
-                Section("Unhealthy") {
-                    ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
-                        NavigationLink {
-                            RecipeDetailView(recipe: $recipe)
-                        } label: {
-                            RecipeRowView(recipe: $recipe)
-                        }
-                    }
+                    .searchable(text: $ingredientManager.recipesSearchTerm)
+                } else {
+                    Text("You currently do not have any ingredients in your Recipe List. Try pressing the '+' button to add a new recipe")
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .foregroundColor(.gray)
                 }
             }
-            .searchable(text: $ingredientManager.recipesSearchTerm)
             .navigationTitle("My Recipes")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -67,7 +105,7 @@ struct RecipesView: View {
                 NewRecipeView(sourceArray: $ingredientManager.recipes)
             }
         }
-        }
+    }
 }
 
 

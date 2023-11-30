@@ -14,6 +14,7 @@ struct Ingredient: Identifiable, Codable, Equatable, Comparable {
     var points: Int
     var image = ""
     var isEaten: Bool = false
+    var isSelected = false
     
     static func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {
         lhs.name == rhs.name 
