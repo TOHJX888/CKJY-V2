@@ -42,23 +42,26 @@ struct NewRecipeView: View {
                     }
                 }
                 NavigationLink {
-                    List {
-                        ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
-                            NewRecipeIngredientRowView(ingredient: $presetIngredient)
-                                .onTapGesture {
-                                    selectedIngredient = presetIngredient
-                                }
+                    NavigationStack {
+                        List {
+                            ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
+                                NewRecipeIngredientRowView(ingredient: $presetIngredient)
+                                    .onTapGesture {
+                                        selectedIngredient = presetIngredient
+                                    }
+                            }
+                        }
+                        .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
+                        .alert(item: $selectedIngredient) { ing in
+                            Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
+                                  primaryButton: .default(Text("Yes"), action: {
+                                let newRecipeIngredient = RecipeIngredient(ingredient: ing)
+                                tempRecipeIngredients.append(newRecipeIngredient)
+                            }),
+                                  secondaryButton: .cancel())
                         }
                     }
-                    .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
-                    .alert(item: $selectedIngredient) { ing in
-                        Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
-                              primaryButton: .default(Text("Yes"), action: {
-                            let newRecipeIngredient = RecipeIngredient(ingredient: ing)
-                            tempRecipeIngredients.append(newRecipeIngredient)
-                        }),
-                              secondaryButton: .cancel())
-                    }
+                    .navigationTitle("Add New Ingredient")
                 } label: {
                     Text("Add New Ingredient")
                 }
@@ -77,6 +80,7 @@ struct NewRecipeView: View {
                 }
             }
         }
+        .navigationTitle("Create New Recipe")
     }
     
     func save() {
