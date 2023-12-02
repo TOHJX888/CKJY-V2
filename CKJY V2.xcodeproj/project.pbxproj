@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		935107CE2B1AC93600D7C20F /* ConditionalNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935107CD2B1AC93600D7C20F /* ConditionalNavigationLink.swift */; };
 		935107D02B1ACAC500D7C20F /* NewRecipeIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935107CF2B1ACAC500D7C20F /* NewRecipeIngredientView.swift */; };
+		935107D32B1AD80200D7C20F /* Forever in Frameworks */ = {isa = PBXBuildFile; productRef = 935107D22B1AD80200D7C20F /* Forever */; };
+		935107D52B1AE63200D7C20F /* RecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935107D42B1AE63200D7C20F /* RecipeManager.swift */; };
 		9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928843C2B0C88BB00618C2C /* CKJY_V2App.swift */; };
 		9928843F2B0C88BB00618C2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9928843E2B0C88BB00618C2C /* ContentView.swift */; };
 		992884412B0C88BE00618C2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992884402B0C88BE00618C2C /* Assets.xcassets */; };
@@ -52,6 +54,7 @@
 /* Begin PBXFileReference section */
 		935107CD2B1AC93600D7C20F /* ConditionalNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalNavigationLink.swift; sourceTree = "<group>"; };
 		935107CF2B1ACAC500D7C20F /* NewRecipeIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeIngredientView.swift; sourceTree = "<group>"; };
+		935107D42B1AE63200D7C20F /* RecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeManager.swift; sourceTree = "<group>"; };
 		992884392B0C88BB00618C2C /* CKJY V2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CKJY V2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9928843C2B0C88BB00618C2C /* CKJY_V2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKJY_V2App.swift; sourceTree = "<group>"; };
 		9928843E2B0C88BB00618C2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935107D32B1AD80200D7C20F /* Forever in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +191,7 @@
 				9939A7612B11975100B41199 /* NewRecipeIngredientRowView.swift */,
 				99775F312B0DE343000BBD76 /* RecipeRowView.swift */,
 				99775F2F2B0DE0ED000BBD76 /* Recipe.swift */,
+				935107D42B1AE63200D7C20F /* RecipeManager.swift */,
 			);
 			path = RecipesTab;
 			sourceTree = "<group>";
@@ -215,6 +220,9 @@
 			dependencies = (
 			);
 			name = "CKJY V2";
+			packageProductDependencies = (
+				935107D22B1AD80200D7C20F /* Forever */,
+			);
 			productName = "CKJY V2";
 			productReference = 992884392B0C88BB00618C2C /* CKJY V2.app */;
 			productType = "com.apple.product-type.application";
@@ -287,6 +295,9 @@
 				Base,
 			);
 			mainGroup = 992884302B0C88BB00618C2C;
+			packageReferences = (
+				935107D12B1AD80200D7C20F /* XCRemoteSwiftPackageReference "forever" */,
+			);
 			productRefGroup = 9928843A2B0C88BB00618C2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -345,6 +356,7 @@
 				99775F2E2B0DD71B000BBD76 /* NewRecipeView.swift in Sources */,
 				9928843D2B0C88BB00618C2C /* CKJY_V2App.swift in Sources */,
 				99775F2C2B0DCEEF000BBD76 /* ProgressView.swift in Sources */,
+				935107D52B1AE63200D7C20F /* RecipeManager.swift in Sources */,
 				99775F272B0DCE64000BBD76 /* RecipesView.swift in Sources */,
 				992884712B0C99AD00618C2C /* IngredientManager.swift in Sources */,
 			);
@@ -669,6 +681,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		935107D12B1AD80200D7C20F /* XCRemoteSwiftPackageReference "forever" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jiachenyee/forever";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		935107D22B1AD80200D7C20F /* Forever */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 935107D12B1AD80200D7C20F /* XCRemoteSwiftPackageReference "forever" */;
+			productName = Forever;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 992884312B0C88BB00618C2C /* Project object */;
 }

@@ -11,6 +11,8 @@ struct RecipeDetailView: View {
     
     @Binding var recipe: Recipe
     @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var recipeManager: RecipeManager
+    @State var recipeName: String = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var pointsChange = 0
@@ -21,14 +23,19 @@ struct RecipeDetailView: View {
             Form {
                 Section("General") {
                     HStack {
-                        TextField("Title", text: $recipe.recipeTitle)
+                        TextField("Title", text: $recipeName)
                     }
                     Stepper("Points: \(recipe.recipePoints)", value: $recipe.recipePoints, in: -5...5)
                 }
                 Section("Ingredients") {
-                    ForEach($recipe.recipeIngredients) { $ingredient in
-               
-                    RecipeIngredientRowView(recipeIngredient: $ingredient)
+                    if !recipe.recipeIngredients.isEmpty {
+                        ForEach($recipe.recipeIngredients) { $ingredient in
+                            RecipeIngredientRowView(recipeIngredient: $ingredient)
+                        }
+                    } else {
+                        Text("You do not have any ingredients in your recipe")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
                     }
                 }
                 Section("Instructions") {
@@ -37,6 +44,15 @@ struct RecipeDetailView: View {
             }
         }
         .navigationTitle("View Recipe")
+        .onAppear {
+            recipeName = recipe.recipeTitle
+        }
+        .onDisappear {
+            if recipeName == "" {
+                recipeName = "Untitled"
+            }
+            recipe.recipeTitle = recipeName
+        }
     }
 }
 
@@ -53,5 +69,6 @@ struct RecipeDetailView_Previews: PreviewProvider {
             )
         )
         .environmentObject(IngredientManager())
+        .environmentObject(RecipeManager())
     }
 }

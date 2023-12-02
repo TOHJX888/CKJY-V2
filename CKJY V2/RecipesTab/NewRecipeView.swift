@@ -17,6 +17,7 @@ struct NewRecipeView: View {
     @Environment(\.dismiss) var dismiss
     @State private var searchTerm2 = ""
     @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var recipeManager: RecipeManager
     @State private var showSheet = false
 
     @State private var tempRecipeIngredients: [RecipeIngredient] = []
@@ -92,5 +93,6 @@ struct NewRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         NewRecipeView(sourceArray: .constant([]))
             .environmentObject(IngredientManager())
+            .environmentObject(RecipeManager())
     }
 }

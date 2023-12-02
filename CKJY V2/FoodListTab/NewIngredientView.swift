@@ -30,7 +30,9 @@ struct NewIngredientView: View {
             .alert(item: $selectedIngredient) { ing in
                 Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
                       primaryButton: .default(Text("Add"), action: {
-                    ingredientManager.selectedIngredients.append(ing)
+                    var mutableIng = ing
+                    mutableIng.id = UUID()
+                    ingredientManager.selectedIngredients.append(mutableIng)
                     dismiss()
                 }),
                       secondaryButton: .cancel())

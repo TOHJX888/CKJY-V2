@@ -13,6 +13,7 @@ struct CKJY_V2App: App {
         WindowGroup {
             ContentView()
                 .environmentObject(IngredientManager())
+                .environmentObject(RecipeManager())
         }
     }
 }

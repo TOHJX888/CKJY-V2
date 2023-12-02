@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var recipeManager: RecipeManager
     let lastActionDateKey = "lastActionDate"
     @State private var showSummary = false
     @State private var isSummaryDay = false
@@ -19,7 +20,7 @@ struct ContentView: View {
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @State private var showOnboardingSheet = false
     @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    @State private var selectedDay = ""
+    @State private var selectedDay = "Monday"
     @State private var summaryDayInt = 2
     
     var body: some View {
@@ -73,7 +74,17 @@ struct ContentView: View {
                     }
                     Section("") {
                         Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
-                        Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal, in: 0...99)
+                        HStack {
+                            Text("New Goal")
+                            Spacer()
+                            Stepper(value: $newPointsGoal, in: 0...99) {
+                                HStack {
+                                    Spacer()
+                                    Text("\(newPointsGoal)")
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
                     }
                 }
                 .navigationTitle("Summary")
@@ -98,12 +109,24 @@ struct ContentView: View {
             NavigationStack {
                 Form {
                     Text("Hello User!")
-                        .font(.title2)
+                        .font(.title)
                     Text("This app uses a self-set goal method to help you on your healthy-eating journey. Before you start, please choose your preferences:")
-                    Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal, in: 0...99)
+                    HStack {
+                        Text("Starting Goal")
+                        Spacer()
+                        Stepper(value: $newPointsGoal, in: 0...99) {
+                            HStack {
+                                Spacer()
+                                Text("\(newPointsGoal)")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                    
                     Picker("Goal Reset Day", selection: $selectedDay) {
                         ForEach(days, id:\.self) {
                             Text($0)
+                                .tag($0)
                         }
                     }
                     Button("Save") {
@@ -158,5 +181,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(IngredientManager())
+            .environmentObject(RecipeManager())
     }
 }

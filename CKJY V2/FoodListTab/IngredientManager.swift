@@ -91,58 +91,9 @@ class IngredientManager: ObservableObject {
         }
     }
     
-    // MARK: Recipes
-    
-    @Published var recipes: [Recipe] = [] {
-        didSet {
-            save()
-        }
-    }
-
-    @Published var recipesSearchTerm = ""
-
-    var recipesFiltered: Binding<[Recipe]> {
-        Binding (
-            get: {
-                if self.recipesSearchTerm == "" { return self.recipes }
-                return self.recipes.filter {
-                    $0.recipeTitle.lowercased().contains(self.recipesSearchTerm.lowercased())
-                }
-            },
-            set: {
-                self.recipes = $0
-            }
-        )
-    }
-
-    // MARK: Recipe Ingredients
-    
-    @Published var recipeIngredients: [RecipeIngredient] = [
-        ] {
-        didSet {
-            save()
-        }
-    }
-
-    @Published var searchTerm2 = ""
-
-    var recipesIngredientsFiltered: Binding<[RecipeIngredient]> {
-        Binding (
-            get: {
-                if self.searchTerm2 == "" { return self.recipeIngredients }
-                return self.recipeIngredients.filter {
-                    $0.ingredient.name.lowercased().contains(self.searchTerm2.lowercased())
-                }
-            },
-            set: {
-                self.recipeIngredients = $0
-            }
-        )
-    }
-    
     // MARK: Preset Ingredients
 
-    @Published var presetIngredients: [Ingredient] = [
+    var presetIngredients: [Ingredient] = [
         Ingredient(name: "Zucchini", points: 1),
         Ingredient(name: "Yellow squash", points: 0),
         Ingredient(name: "Yellow onion", points: 0),
@@ -164,7 +115,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "White chocolate chip", points: 0),
         Ingredient(name: "White chocolate", points: 0),
         Ingredient(name: "White cheddar cheese", points: 0),
-        Ingredient(name: "Bread", points: 0),
         Ingredient(name: "White bean", points: 0),
         Ingredient(name: "White balsamic vinegar", points: 1),
         Ingredient(name: "Wheat thin", points: 0),
@@ -201,7 +151,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Teriyaki sauce", points: 0),
         Ingredient(name: "Tempeh", points: 1),
         Ingredient(name: "Teddy Graham", points: 0),
-        Ingredient(name: "TarTar sauce", points: -1),
+        Ingredient(name: "Tartar sauce", points: -1),
         Ingredient(name: "Tarragon", points: 1),
         Ingredient(name: "Tapioca pudding", points: 0),
         Ingredient(name: "Tangelo", points: 1),
@@ -226,7 +176,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Sunflower oil", points: 0),
         Ingredient(name: "Sun-dried tomato", points: 1),
         Ingredient(name: "Sunchoke", points: 1),
-        Ingredient(name: "Sucralose", points: -1),
         Ingredient(name: "Strawberry", points: 1),
         Ingredient(name: "Star fruit", points: 1),
         Ingredient(name: "Starburst", points: 0),
@@ -241,8 +190,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Sour cream", points: 0),
         Ingredient(name: "Sorrel", points: 1),
         Ingredient(name: "Sorghum", points: 1),
-        Ingredient(name: "Sodium benzoate", points: -1),
-        Ingredient(name: "Sodium Aluminium Sulfate", points: -1),
         Ingredient(name: "Soda", points: -1),
         Ingredient(name: "Soba noodle", points: 1),
         Ingredient(name: "Snickers", points: 0),
@@ -257,6 +204,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Sausage", points: 0),
         Ingredient(name: "Sardine", points: 1),
         Ingredient(name: "Saltine", points: 0),
+        Ingredient(name: "Salt", points: 0),
         Ingredient(name: "Salsify", points: 1),
         Ingredient(name: "Salmon", points: 1),
         Ingredient(name: "Sage", points: 1),
@@ -312,7 +260,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Potato salad", points: 0),
         Ingredient(name: "Potato chip", points: -1),
         Ingredient(name: "Potato", points: 1),
-        Ingredient(name: "Potassium sorbate", points: -1),
         Ingredient(name: "Pork tenderloin", points: 0),
         Ingredient(name: "Pork rib", points: 0),
         Ingredient(name: "Pork chop", points: 0),
@@ -416,7 +363,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Instant mashed potato flake", points: -1),
         Ingredient(name: "Instant mashed potato", points: -1),
         Ingredient(name: "Instant gravy mix", points: -1),
-        Ingredient(name: "Iced teas with added sugar", points: -1),
+        Ingredient(name: "Iced tea with added sugar", points: -1),
         Ingredient(name: "Ice cream cone", points: 0),
         Ingredient(name: "Ice cream", points: -1),
         Ingredient(name: "Iceberg lettuce", points: 0),
@@ -436,6 +383,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Hazelnut oil", points: 1),
         Ingredient(name: "Hazelnuts", points: 1),
         Ingredient(name: "Hash browns with added preservatives", points: -1),
+        Ingredient(name: "Hash browns", points: 1),
         Ingredient(name: "Hard candy", points: -1),
         Ingredient(name: "Hamburger Helper", points: -1),
         Ingredient(name: "Gummy worm", points: 0),
@@ -606,7 +554,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Canned ravioli", points: -1),
         Ingredient(name: "Canned processed meat", points: -1),
         Ingredient(name: "Canned pasta", points: -1),
-        Ingredient(name: "Canned meatball", points: -1), // MARK: CONTINUE SINGULARI-ATING HERE
+        Ingredient(name: "Canned meatball", points: -1),
         Ingredient(name: "Canned creamy soup", points: -1),
         Ingredient(name: "Canned chilli", points: -1),
         Ingredient(name: "Candy bar", points: -1),
@@ -630,7 +578,7 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Brownie", points: -1),
         Ingredient(name: "Broccolini", points: 1),
         Ingredient(name: "Broccoli", points: 1),
-        Ingredient(name: "Bread", points: -1),
+        Ingredient(name: "Bread", points: 0),
         Ingredient(name: "Boxed scalloped potato", points: -1),
         Ingredient(name: "Boxed macaroni and cheese", points: -1),
         Ingredient(name: "Boxed au gratin potato", points: -1),
@@ -649,8 +597,6 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Black-eyed pea", points: 1),
         Ingredient(name: "Black currant", points: 1),
         Ingredient(name: "Black bean", points: 1),
-        Ingredient(name: "BHT (Butylated hydroxytoluene)", points: -1),
-        Ingredient(name: "BHA (Butylated hydroxyanisole)", points: -1),
         Ingredient(name: "Bell peppers", points: 0),
         Ingredient(name: "Beet", points: 1),
         Ingredient(name: "Beef sirloin", points: 0),
@@ -663,13 +609,8 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Baby spinach", points: 0),
         Ingredient(name: "Avocado oil", points: 1),
         Ingredient(name: "Avocado", points: 1),
-        Ingredient(name: "Aspartame", points: -1),
         Ingredient(name: "Asparagus", points: 1),
         Ingredient(name: "Arugula", points: 1),
-        Ingredient(name: "Artificial sweeteners", points: -1),
-        Ingredient(name: "Artificial preservatives", points: -1),
-        Ingredient(name: "Artificial food coloring", points: -1),
-        Ingredient(name: "Artificial flavorings", points: -1),
         Ingredient(name: "Artichoke", points: 1),
         Ingredient(name: "Arrowroot", points: 1),
         Ingredient(name: "Apricot oil", points: 1),
@@ -690,13 +631,8 @@ class IngredientManager: ObservableObject {
         Ingredient(name: "Almond", points: 1),
         Ingredient(name: "Agave syrup", points: -1),
         Ingredient(name: "Agave nectar", points: 0),
-        Ingredient(name: "Acorn squash", points: 1),
-        Ingredient(name: "Acesulfame potassium​", points: -1)
-    ] {
-        didSet {
-            save()
-        }
-    }
+        Ingredient(name: "Acorn squash", points: 1)
+    ]
 
     @Published var presetIngredientsSearchTerm = ""
 
@@ -716,8 +652,8 @@ class IngredientManager: ObservableObject {
     }
         
     init() {
-        presetIngredients.sort(by: { $0.name < $1.name })
         load()
+        presetIngredients.sort(by: { $0.name < $1.name })
     }
     
     func getArchiveURL() -> URL {
@@ -730,6 +666,7 @@ class IngredientManager: ObservableObject {
     func save() {
         let archiveURL = getArchiveURL()
         let propertyListEncoder = PropertyListEncoder()
+        
         let encodedSelectedIngredients = try? propertyListEncoder.encode(selectedIngredients)
         try? encodedSelectedIngredients?.write(to: archiveURL, options: .noFileProtection)
 

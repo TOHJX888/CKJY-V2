@@ -10,21 +10,21 @@ import SwiftUI
 
 struct ConditionalNavigationLink: ViewModifier {
     
-    @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var recipeManager: RecipeManager
     @Binding var selectedRecipe: Recipe?
     
     func body(content: Content) -> some View {
         if #available(iOS 17, *) {
             content
                 .navigationDestination(item: $selectedRecipe) { recipe in
-                    let index = ingredientManager.recipes.firstIndex {
+                    let index = recipeManager.recipes.firstIndex {
                         $0.id == recipe.id
                     }!
                     
                     RecipeDetailView(recipe: Binding(get: {
-                        ingredientManager.recipes[index]
+                        recipeManager.recipes[index]
                     }, set: { newValue in
-                        ingredientManager.recipes[index] = newValue
+                        recipeManager.recipes[index] = newValue
                     }))
                 }
         } else {

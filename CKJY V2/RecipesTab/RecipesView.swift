@@ -11,17 +11,18 @@ struct RecipesView: View {
     @State private var showSheet = false
     @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
+    @EnvironmentObject var recipeManager: RecipeManager
     
     @State private var selectedRecipe: Recipe?
     
     var body: some View {
         NavigationStack {
             VStack {
-                if !ingredientManager.recipes.isEmpty {
+                if !recipeManager.recipes.isEmpty {
                     List {
                         Section("Healthy") {
-                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
-                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            ForEach($recipeManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
+                                if recipeManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( recipeManager.recipesSearchTerm.lowercased()) {
                                     
                                     if #available(iOS 17, *) {
                                         Button {
@@ -39,16 +40,16 @@ struct RecipesView: View {
                                 }
                             }
                             .onDelete { indexSet in
-                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                                recipeManager.recipes.remove(atOffsets: indexSet)
                             }
                             .onMove { originalOffsets, newOffset in
-                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                                recipeManager.recipes.move(fromOffsets: originalOffsets,
                             toOffset: newOffset)
                             }
                         }
                         Section("Neutral") {
-                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
-                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            ForEach($recipeManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
+                                if recipeManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( recipeManager.recipesSearchTerm.lowercased()) {
                                     
                                     if #available(iOS 17, *) {
                                         Button {
@@ -66,16 +67,16 @@ struct RecipesView: View {
                                 }
                             }
                             .onDelete { indexSet in
-                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                                recipeManager.recipes.remove(atOffsets: indexSet)
                             }
                             .onMove { originalOffsets, newOffset in
-                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                                recipeManager.recipes.move(fromOffsets: originalOffsets,
                             toOffset: newOffset)
                             }
                         }
                         Section("Unhealthy") {
-                            ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
-                                if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
+                            ForEach($recipeManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
+                                if recipeManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( recipeManager.recipesSearchTerm.lowercased()) {
                                     
                                     if #available(iOS 17, *) {
                                         Button {
@@ -93,15 +94,15 @@ struct RecipesView: View {
                                 }
                             }
                             .onDelete { indexSet in
-                                ingredientManager.recipes.remove(atOffsets: indexSet)
+                                recipeManager.recipes.remove(atOffsets: indexSet)
                             }
                             .onMove { originalOffsets, newOffset in
-                                ingredientManager.recipes.move(fromOffsets: originalOffsets,
+                                recipeManager.recipes.move(fromOffsets: originalOffsets,
                             toOffset: newOffset)
                             }
                         }
                     }
-                    .searchable(text: $ingredientManager.recipesSearchTerm)
+                    .searchable(text: $recipeManager.recipesSearchTerm)
                     .modifier(ConditionalNavigationLink(selectedRecipe: $selectedRecipe))
                 } else {
                     Text("You currently do not have any recipes in your Recipe List. Try pressing the '+' button to add a new recipe")
@@ -131,7 +132,7 @@ struct RecipesView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                NewRecipeView(sourceArray: $ingredientManager.recipes)
+                NewRecipeView(sourceArray: $recipeManager.recipes)
             }
         }
     }
@@ -142,5 +143,6 @@ struct RecipesView_Previews: PreviewProvider {
     static var previews: some View {
         RecipesView()
             .environmentObject(IngredientManager())
+            .environmentObject(RecipeManager())
     }
 }
