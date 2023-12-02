@@ -20,7 +20,7 @@ struct ContentView: View {
     @State private var showOnboardingSheet = false
     @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     @State private var selectedDay = "Monday"
-    @State private var summaryDayInt = 7
+    @State private var summaryDayInt = 2
     
     var body: some View {
         TabView {
