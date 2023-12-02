@@ -14,7 +14,7 @@ struct RecipeDetailView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var pointsChange = 0
-    
+    @State private var tempRecipeIngredients: [RecipeIngredient] = []
     
     var body: some View {
         NavigationStack {
@@ -33,25 +33,6 @@ struct RecipeDetailView: View {
                 }
                 Section("Instructions") {
                     TextEditor(text: $recipe.recipeInstructions)
-                }
-                Section("Actions") {
-                    Button("Tap when eaten") {
-                        alertMessage = "Are you sure you have eaten this?"
-                        pointsChange = recipe.recipePoints
-                        showAlert = true
-                    }
-                    Button("Tap to undo", role: .destructive) {
-                        alertMessage = "Are you sure you want to undo this action?"
-                        pointsChange = recipe.recipePoints * -1
-                        showAlert = true
-                    }
-                }
-                .alert(alertMessage, isPresented: $showAlert) {
-                    Button("Continue", role: .destructive) {
-                        ingredientManager.totalPoints += pointsChange
-                    }
-                } message: {
-                    Text("This will result in a change of \(pointsChange) \(pointsChange == 1 ? "point" : "points").")
                 }
             }
         }

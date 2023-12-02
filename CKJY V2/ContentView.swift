@@ -20,7 +20,7 @@ struct ContentView: View {
     @State private var showOnboardingSheet = false
     @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     @State private var selectedDay = ""
-    @State private var summaryDayInt = 7
+    @State private var summaryDayInt = 2
     
     var body: some View {
         TabView {
@@ -73,7 +73,7 @@ struct ContentView: View {
                     }
                     Section("") {
                         Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
-                        Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal)
+                        Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal, in: 0...99)
                     }
                 }
                 .navigationTitle("Summary")
@@ -100,7 +100,7 @@ struct ContentView: View {
                     Text("Hello User!")
                         .font(.title2)
                     Text("This app uses a self-set goal method to help you on your healthy-eating journey. Before you start, please choose your preferences:")
-                    Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal)
+                    Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal, in: 0...99)
                     Picker("Goal Reset Day", selection: $selectedDay) {
                         ForEach(days, id:\.self) {
                             Text($0)

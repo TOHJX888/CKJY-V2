@@ -12,19 +12,29 @@ struct RecipesView: View {
     @State private var searchTerm = ""
     @EnvironmentObject var ingredientManager: IngredientManager
     
+    @State private var selectedRecipe: Recipe?
+    
     var body: some View {
         NavigationStack {
             VStack {
                 if !ingredientManager.recipes.isEmpty {
-                    List() {
+                    List {
                         Section("Healthy") {
                             ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints > 2 })) { $recipe in
                                 if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
                                     
-                                    NavigationLink {
-                                        RecipeDetailView(recipe: $recipe)
-                                    } label: {
-                                        RecipeRowView(recipe: $recipe)
+                                    if #available(iOS 17, *) {
+                                        Button {
+                                            selectedRecipe = recipe
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
+                                    } else {
+                                        NavigationLink {
+                                            RecipeDetailView(recipe: $recipe)
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
                                     }
                                 }
                             }
@@ -39,10 +49,19 @@ struct RecipesView: View {
                         Section("Neutral") {
                             ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < 3 && $0.wrappedValue.recipePoints > -3 })) { $recipe in
                                 if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
-                                    NavigationLink {
-                                        RecipeDetailView(recipe: $recipe)
-                                    } label: {
-                                        RecipeRowView(recipe: $recipe)
+                                    
+                                    if #available(iOS 17, *) {
+                                        Button {
+                                            selectedRecipe = recipe
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
+                                    } else {
+                                        NavigationLink {
+                                            RecipeDetailView(recipe: $recipe)
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
                                     }
                                 }
                             }
@@ -57,10 +76,19 @@ struct RecipesView: View {
                         Section("Unhealthy") {
                             ForEach($ingredientManager.recipes.filter({ $0.wrappedValue.recipePoints < -2 })) { $recipe in
                                 if ingredientManager.recipesSearchTerm == "" || recipe.recipeTitle.lowercased().contains( ingredientManager.recipesSearchTerm.lowercased()) {
-                                    NavigationLink {
-                                        RecipeDetailView(recipe: $recipe)
-                                    } label: {
-                                        RecipeRowView(recipe: $recipe)
+                                    
+                                    if #available(iOS 17, *) {
+                                        Button {
+                                            selectedRecipe = recipe
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
+                                    } else {
+                                        NavigationLink {
+                                            RecipeDetailView(recipe: $recipe)
+                                        } label: {
+                                            RecipeRowView(recipe: $recipe)
+                                        }
                                     }
                                 }
                             }
@@ -74,8 +102,9 @@ struct RecipesView: View {
                         }
                     }
                     .searchable(text: $ingredientManager.recipesSearchTerm)
+                    .modifier(ConditionalNavigationLink(selectedRecipe: $selectedRecipe))
                 } else {
-                    Text("You currently do not have any ingredients in your Recipe List. Try pressing the '+' button to add a new recipe")
+                    Text("You currently do not have any recipes in your Recipe List. Try pressing the '+' button to add a new recipe")
                         .padding()
                         .multilineTextAlignment(.center)
                         .font(.title2)

@@ -18,7 +18,7 @@ struct NewRecipeView: View {
     @State private var searchTerm2 = ""
     @EnvironmentObject var ingredientManager: IngredientManager
     @State private var showSheet = false
-    @State private var selectedIngredient: Ingredient?
+
     @State private var tempRecipeIngredients: [RecipeIngredient] = []
     
     var body: some View {
@@ -41,26 +41,7 @@ struct NewRecipeView: View {
                             .foregroundColor(.gray)
                     }
                     NavigationLink {
-                        NavigationStack {
-                            List {
-                                ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
-                                    NewRecipeIngredientRowView(ingredient: $presetIngredient)
-                                        .onTapGesture {
-                                            selectedIngredient = presetIngredient
-                                        }
-                                }
-                            }
-                            .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
-                            .alert(item: $selectedIngredient) { ing in
-                                Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
-                                      primaryButton: .default(Text("Yes"), action: {
-                                    let newRecipeIngredient = RecipeIngredient(ingredient: ing)
-                                    tempRecipeIngredients.append(newRecipeIngredient)
-                                }),
-                                      secondaryButton: .cancel())
-                            }
-                        }
-                        .navigationTitle("Add New Ingredient")
+                        NewRecipeIngredientView(tempRecipeIngredients: $tempRecipeIngredients)
                     } label: {
                         Text("Add New Ingredient")
                             .foregroundColor(.blue)
@@ -111,7 +92,5 @@ struct NewRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         NewRecipeView(sourceArray: .constant([]))
             .environmentObject(IngredientManager())
-//        RecipeIngredientRowView(ingredient: .init(name: "broccoli", points: 1))
-//        NewRecipeIngredientRowView(ingredient: .init(name: "apple", points: 1))
     }
 }
