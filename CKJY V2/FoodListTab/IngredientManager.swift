@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
+import Forever
 
 class IngredientManager: ObservableObject {
+    
+    @Forever("isSummaryDay") var isSummaryDay = false
     
     // MARK: Selected Ingredients
     
@@ -75,7 +78,7 @@ class IngredientManager: ObservableObject {
     
     // MARK: Total Points
     
-    @Published var totalPoints = 0
+    @Forever("totalPoints") var totalPoints = 0
     {
         didSet {
             save()
@@ -84,7 +87,7 @@ class IngredientManager: ObservableObject {
     
     // MARK: Points Goal
     
-    @Published var pointsGoal = 30
+    @Forever("pointsGoal") var pointsGoal = 30
     {
         didSet {
             save()

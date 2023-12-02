@@ -13,7 +13,6 @@ struct ContentView: View {
     @EnvironmentObject var recipeManager: RecipeManager
     let lastActionDateKey = "lastActionDate"
     @State private var showSummary = false
-    @State private var isSummaryDay = false
     @State private var newPointsGoal = 50
     @Environment(\.dismiss) var dismiss
     @State private var pressedSaveButton = false
@@ -21,7 +20,7 @@ struct ContentView: View {
     @State private var showOnboardingSheet = false
     @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     @State private var selectedDay = "Monday"
-    @State private var summaryDayInt = 2
+    @State private var summaryDayInt = 7
     
     var body: some View {
         TabView {
@@ -41,7 +40,7 @@ struct ContentView: View {
         .onAppear {
             if !hasLaunchedBefore {
                 showOnboardingSheet = true
-                isSummaryDay = true
+                ingredientManager.isSummaryDay = true
             }
             performActionIfNeeded()
         }
@@ -91,13 +90,13 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("Cancel", role: .destructive) {
-                            dismiss()
+                            showSummary = false
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Save") {
                             ingredientManager.pointsGoal = newPointsGoal
-                            dismiss()
+                            showSummary = false
                         }
                     }
                 }
@@ -162,8 +161,8 @@ struct ContentView: View {
         let now = Date()
 
         // Check if today is Monday
-        if calendar.component(.weekday, from: now) == summaryDayInt && !isSummaryDay && hasLaunchedBefore {
-            isSummaryDay = true
+        if calendar.component(.weekday, from: now) == summaryDayInt && !ingredientManager.isSummaryDay && hasLaunchedBefore {
+            ingredientManager.isSummaryDay = true
             showSummary = true
             print("Action performed on Monday!")
 
@@ -171,7 +170,7 @@ struct ContentView: View {
             UserDefaults.standard.set(now, forKey: lastActionDateKey)
         }
         if calendar.component(.weekday, from: now) != summaryDayInt {
-            isSummaryDay = false
+            ingredientManager.isSummaryDay = false
             print("can show sheet again")
         }
     }
