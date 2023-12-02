@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct RecipeIngredient: Identifiable, Codable {
+struct RecipeIngredient: Identifiable, Codable, Hashable {
     var id = UUID()
     var ingredient: Ingredient
     var amount = "0 units"
 }
 
 
-struct Recipe: Identifiable, Codable {
+struct Recipe: Identifiable, Codable, Hashable {
     var id = UUID()
     var recipeTitle: String
     var recipePoints: Int

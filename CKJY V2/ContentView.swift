@@ -13,14 +13,14 @@ struct ContentView: View {
     let lastActionDateKey = "lastActionDate"
     @State private var showSummary = false
     @State private var isSummaryDay = false
-    @State private var newPointsGoalString = ""
+    @State private var newPointsGoal = 50
     @Environment(\.dismiss) var dismiss
     @State private var pressedSaveButton = false
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @State private var showOnboardingSheet = false
     @State private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     @State private var selectedDay = ""
-    @State private var summaryDayInt = 2
+    @State private var summaryDayInt = 7
     
     var body: some View {
         TabView {
@@ -44,13 +44,7 @@ struct ContentView: View {
             }
             performActionIfNeeded()
         }
-        .sheet(isPresented: $showSummary, onDismiss: {
-            if !pressedSaveButton {
-                newPointsGoalString = ""
-            } else {
-                pressedSaveButton = false
-            }
-        }) {
+        .sheet(isPresented: $showSummary) {
             NavigationStack {
                 Form {
                     HStack {
@@ -79,21 +73,19 @@ struct ContentView: View {
                     }
                     Section("") {
                         Text("You achieved \(Int(Double(ingredientManager.totalPoints) / Double(ingredientManager.pointsGoal) * 100))% of your goal! Congratulations!")
-                        TextField("New Goal", text: $newPointsGoalString)
-                            .keyboardType(.numberPad)
+                        Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal)
                     }
                 }
+                .navigationTitle("Summary")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("Cancel", role: .destructive) {
-                            newPointsGoalString = ""
                             dismiss()
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Save") {
-                            ingredientManager.pointsGoal = Int(newPointsGoalString) ?? 0
-                            newPointsGoalString = ""
+                            ingredientManager.pointsGoal = newPointsGoal
                             dismiss()
                         }
                     }
@@ -103,41 +95,42 @@ struct ContentView: View {
         .sheet(isPresented: $showOnboardingSheet, onDismiss: {
             hasLaunchedBefore = true
         }) {
-            Form {
-                Text("Hello User!")
-                    .font(.title)
-                Text("This app uses a self-set goal method to help you on your healthy-eating journey. Before you start, please choose your preferences:")
-                TextField("Starting Goal", text: $newPointsGoalString)
-                    .keyboardType(.numberPad)
-                Picker("Summary Day", selection: $selectedDay) {
-                    ForEach(days, id:\.self) {
-                        Text($0)
+            NavigationStack {
+                Form {
+                    Text("Hello User!")
+                        .font(.title2)
+                    Text("This app uses a self-set goal method to help you on your healthy-eating journey. Before you start, please choose your preferences:")
+                    Stepper("Starting Goal: \(newPointsGoal)", value: $newPointsGoal)
+                    Picker("Goal Reset Day", selection: $selectedDay) {
+                        ForEach(days, id:\.self) {
+                            Text($0)
+                        }
+                    }
+                    Button("Save") {
+                        ingredientManager.pointsGoal = newPointsGoal
+                        switch selectedDay {
+                        case "Monday":
+                            summaryDayInt = 2
+                        case "Tuesday":
+                            summaryDayInt = 3
+                        case "Wednesday":
+                            summaryDayInt = 4
+                        case "Thursday":
+                            summaryDayInt = 5
+                        case "Friday":
+                            summaryDayInt = 6
+                        case "Saturday":
+                            summaryDayInt = 7
+                        case "Sunday":
+                            summaryDayInt = 1
+                        default:
+                            summaryDayInt = 2
+                        }
+                        showOnboardingSheet = false
+                        hasLaunchedBefore = true
                     }
                 }
-                Button("Save") {
-                    ingredientManager.pointsGoal = Int(newPointsGoalString) ?? 0
-                    newPointsGoalString = ""
-                    switch selectedDay {
-                    case "Monday":
-                        summaryDayInt = 2
-                    case "Tuesday":
-                        summaryDayInt = 3
-                    case "Wednesday":
-                        summaryDayInt = 4
-                    case "Thursday":
-                        summaryDayInt = 5
-                    case "Friday":
-                        summaryDayInt = 6
-                    case "Saturday":
-                        summaryDayInt = 7
-                    case "Sunday":
-                        summaryDayInt = 1
-                    default:
-                        summaryDayInt = 2
-                    }
-                    showOnboardingSheet = false
-                    hasLaunchedBefore = true
-                }
+                .navigationTitle("Goal-Setting")
             }
         }
     }

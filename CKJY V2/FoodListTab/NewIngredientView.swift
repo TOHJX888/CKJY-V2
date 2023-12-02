@@ -19,6 +19,7 @@ struct NewIngredientView: View {
                 if !presetIngredient.isSelected {
                     IngredientNewRowView(ingredientNew: $presetIngredient)
                         .foregroundColor(presetIngredient.points == -1 ? .red : presetIngredient.points == 0 ? Color(red: 0.95, green: 0.7, blue: 0) : .green)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             selectedIngredient = presetIngredient
                         }
@@ -28,7 +29,7 @@ struct NewIngredientView: View {
             .navigationTitle("New Ingredient")
             .alert(item: $selectedIngredient) { ing in
                 Alert(title: Text("Are you sure you want to add \(ing.name) to your Food List?"),
-                      primaryButton: .default(Text("Yes"), action: {
+                      primaryButton: .default(Text("Add"), action: {
                     ingredientManager.selectedIngredients.append(ing)
                     dismiss()
                 }),

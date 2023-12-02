@@ -40,30 +40,31 @@ struct NewRecipeView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray)
                     }
-                }
-                NavigationLink {
-                    NavigationStack {
-                        List {
-                            ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
-                                NewRecipeIngredientRowView(ingredient: $presetIngredient)
-                                    .onTapGesture {
-                                        selectedIngredient = presetIngredient
-                                    }
+                    NavigationLink {
+                        NavigationStack {
+                            List {
+                                ForEach(ingredientManager.presetIngredientsFiltered) { $presetIngredient in
+                                    NewRecipeIngredientRowView(ingredient: $presetIngredient)
+                                        .onTapGesture {
+                                            selectedIngredient = presetIngredient
+                                        }
+                                }
+                            }
+                            .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
+                            .alert(item: $selectedIngredient) { ing in
+                                Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
+                                      primaryButton: .default(Text("Yes"), action: {
+                                    let newRecipeIngredient = RecipeIngredient(ingredient: ing)
+                                    tempRecipeIngredients.append(newRecipeIngredient)
+                                }),
+                                      secondaryButton: .cancel())
                             }
                         }
-                        .searchable(text: $ingredientManager.presetIngredientsSearchTerm)
-                        .alert(item: $selectedIngredient) { ing in
-                            Alert(title: Text("Are you sure you want to add \(ing.name) to your recipe?"),
-                                  primaryButton: .default(Text("Yes"), action: {
-                                let newRecipeIngredient = RecipeIngredient(ingredient: ing)
-                                tempRecipeIngredients.append(newRecipeIngredient)
-                            }),
-                                  secondaryButton: .cancel())
-                        }
+                        .navigationTitle("Add New Ingredient")
+                    } label: {
+                        Text("Add New Ingredient")
+                            .foregroundColor(.blue)
                     }
-                    .navigationTitle("Add New Ingredient")
-                } label: {
-                    Text("Add New Ingredient")
                 }
                 Section("Instructions") {
                     TextEditor(text: $recipeInstructions)
@@ -79,8 +80,8 @@ struct NewRecipeView: View {
                     }
                 }
             }
+            .navigationTitle("Create New Recipe")
         }
-        .navigationTitle("Create New Recipe")
     }
     
     func save() {
